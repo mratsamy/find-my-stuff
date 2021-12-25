@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Container {
+  id String @id @default(cuid())
+  title String
+  description String?
+  shelves Shelf[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Shelf {
+  id String @id @default(cuid())
+  title String
+  description String?
+  container Container @relation(fields: [containerId], references: [id])
+  containerId String
+  items Item[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([containerId])
+}
+
+model Item {
+  id String @id @default(cuid())
+  title String
+  description String?
+  shelf Shelf @relation(fields: [shelfId], references: [id])
+  shelfId String
+  quantity Int
+  expiry DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([expiry])
+  @@index([shelfId])
+}
