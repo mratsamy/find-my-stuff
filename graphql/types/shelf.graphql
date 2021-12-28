@@ -1,0 +1,42 @@
+type Shelf {
+  id: ID!
+  title: String!
+  description: String
+  container: Container
+  items: [Item]!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type ShelfResponse {
+  shelf: Shelf
+  query: Query
+}
+
+type ShelvesResponse {
+  shelves: [Shelf]!
+  query: Query
+}
+
+input NewShelfInput {
+  title: String!
+  description: String
+  containerId: ID
+}
+
+input UpdateShelfInput {
+  id: ID!
+  title: String
+  description: String
+  containerId: ID
+}
+
+type Query {
+  getShelf(id: ID!): ShelfResponse
+  shelves: ShelvesResponse
+}
+
+type Mutation {
+  addShelf(input: NewShelfInput): ShelfResponse
+  updateShelf(input: UpdateShelfInput): ShelfResponse
+}

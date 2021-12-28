@@ -1,0 +1,39 @@
+type Container {
+  id: ID!
+  title: String!
+  description: String
+  shelves: [Shelf]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input NewContainerInput {
+  title: String!
+  description: String
+}
+
+input UpdateContainerInput {
+  id: ID!
+  title: String
+  description: String
+}
+
+type ContainersResponse {
+  containers: [Container]!
+  query: Query
+}
+
+type ContainerResponse {
+  container: Container
+  query: Query
+}
+
+type Query {
+  getContainer(id: ID!): ContainerResponse
+  containers: ContainersResponse
+}
+
+type Mutation {
+  addContainer(input: NewContainerInput): ContainerResponse
+  updateContainer(input: UpdateContainerInput): ContainerResponse
+}

@@ -1,0 +1,47 @@
+type Item {
+  id: ID!
+  title: String!
+  description: String
+  shelf: Shelf
+  quantity: NonNegativeInt!
+  expiry: DateTime!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+input NewItemInput {
+  title: String!
+  description: String
+  shelfId: String
+  quantity: NonNegativeInt!
+  expiry: DateTime!
+}
+
+input UpdateItemInput {
+  id: ID!
+  title: String
+  description: String
+  shelfId: String
+  quantity: NonNegativeInt
+  expiry: DateTime
+}
+
+type ItemResponse {
+  item: Item
+  query: Query
+}
+
+type ItemsResponse {
+  items: [Item]!
+  query: Query
+}
+
+type Query {
+  getItem(id: ID!): ItemResponse
+  items: ItemsResponse
+}
+
+type Mutation {
+  addItem(input: NewItemInput!): ItemResponse
+  updateItem(input: UpdateItemInput!): ItemResponse
+}
