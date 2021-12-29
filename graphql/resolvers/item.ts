@@ -14,6 +14,7 @@ export const Queries: QueryResolvers = {
   },
   async getItem(_parent, { id }, { prisma }, _info) {
     const item = await prisma.item.findUnique({ where: { id } });
+
     return {
       item,
     };
