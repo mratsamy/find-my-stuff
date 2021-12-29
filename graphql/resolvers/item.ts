@@ -2,7 +2,7 @@ import type {
   MutationResolvers,
   QueryResolvers,
 } from "@graphql/generated/resolvers-types";
-import { Prisma } from "@prisma/client";
+import type { Prisma } from "@prisma/client";
 
 export const Queries: QueryResolvers = {
   async items(_parent, _args, { prisma }, _info) {
