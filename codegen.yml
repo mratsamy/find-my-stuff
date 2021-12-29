@@ -7,6 +7,13 @@ generates:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
+  graphql/generated/resolvers-types.ts:
+    config:
+      useIndexSignature: true
+      contextType: "graphql/context#Context"
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"
   ./graphql.schema.json:
     plugins:
       - "introspection"
