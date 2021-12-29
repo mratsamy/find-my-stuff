@@ -36,8 +36,8 @@ model Item {
   id String @id @default(cuid())
   title String
   description String?
-  shelf Shelf @relation(fields: [shelfId], references: [id])
-  shelfId String
+  shelf Shelf? @relation(fields: [shelfId], references: [id])
+  shelfId String?
   quantity Int
   expiry DateTime?
   createdAt DateTime @default(now())

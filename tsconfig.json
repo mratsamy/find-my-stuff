@@ -19,7 +19,7 @@
       "@src/*": ["src/*"],
       "@components/*": ["src/components/*"],
       "@styles/*": ["styles/*"],
-      "@api/*": ["api/*"],
+      "@api/*": ["src/pages/api/*"],
       "@lib/*": ["lib/*"],
       "@graphql/*": ["graphql/*"]
     }
