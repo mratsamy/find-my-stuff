@@ -2,8 +2,8 @@ import { useRouter } from "next/router";
 
 import { useGetItemByIdQuery } from "@graphql/generated/graphql";
 import ClientOnly from "@src/components/clientOnly/ClientOnly";
-import Loading from "@src/components/Loading/Loading";
-import ErrorResponse from "@src/components/ErrorResponse/ErrorResponse";
+import Loading from "@src/components/loading/Loading";
+import ErrorResponse from "@src/components/errorResponse/ErrorResponse";
 import Back from "@src/components/buttons/back/Back";
 
 function Item() {

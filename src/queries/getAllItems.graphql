@@ -1,0 +1,11 @@
+query getAllItems {
+  items {
+    items {
+      id
+      title
+      description
+      quantity
+      expiry
+    }
+  }
+}

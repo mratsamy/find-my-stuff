@@ -194,6 +194,16 @@ export type UpdateShelfInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
+export type GetAllContainersQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllContainersQuery = { __typename?: 'Query', containers?: { __typename?: 'ContainersResponse', containers: Array<{ __typename?: 'Container', id: string, title: string, description?: string | null | undefined, shelves?: Array<{ __typename?: 'Shelf', id: string } | null | undefined> | null | undefined } | null | undefined> } | null | undefined };
+
+export type GetAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllItemsQuery = { __typename?: 'Query', items?: { __typename?: 'ItemsResponse', items: Array<{ __typename?: 'Item', id: string, title: string, description?: string | null | undefined, quantity: any, expiry: any } | null | undefined> } | null | undefined };
+
 export type GetItemByIdQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -202,6 +212,87 @@ export type GetItemByIdQueryVariables = Exact<{
 export type GetItemByIdQuery = { __typename?: 'Query', getItem?: { __typename?: 'ItemResponse', item?: { __typename?: 'Item', id: string, title: string, description?: string | null | undefined, quantity: any, expiry: any } | null | undefined } | null | undefined };
 
 
+export const GetAllContainersDocument = gql`
+    query getAllContainers {
+  containers {
+    containers {
+      id
+      title
+      description
+      shelves {
+        id
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllContainersQuery__
+ *
+ * To run a query within a React component, call `useGetAllContainersQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllContainersQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllContainersQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllContainersQuery(baseOptions?: Apollo.QueryHookOptions<GetAllContainersQuery, GetAllContainersQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllContainersQuery, GetAllContainersQueryVariables>(GetAllContainersDocument, options);
+      }
+export function useGetAllContainersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllContainersQuery, GetAllContainersQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllContainersQuery, GetAllContainersQueryVariables>(GetAllContainersDocument, options);
+        }
+export type GetAllContainersQueryHookResult = ReturnType<typeof useGetAllContainersQuery>;
+export type GetAllContainersLazyQueryHookResult = ReturnType<typeof useGetAllContainersLazyQuery>;
+export type GetAllContainersQueryResult = Apollo.QueryResult<GetAllContainersQuery, GetAllContainersQueryVariables>;
+export const GetAllItemsDocument = gql`
+    query getAllItems {
+  items {
+    items {
+      id
+      title
+      description
+      quantity
+      expiry
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllItemsQuery__
+ *
+ * To run a query within a React component, call `useGetAllItemsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllItemsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllItemsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllItemsQuery(baseOptions?: Apollo.QueryHookOptions<GetAllItemsQuery, GetAllItemsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllItemsQuery, GetAllItemsQueryVariables>(GetAllItemsDocument, options);
+      }
+export function useGetAllItemsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllItemsQuery, GetAllItemsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllItemsQuery, GetAllItemsQueryVariables>(GetAllItemsDocument, options);
+        }
+export type GetAllItemsQueryHookResult = ReturnType<typeof useGetAllItemsQuery>;
+export type GetAllItemsLazyQueryHookResult = ReturnType<typeof useGetAllItemsLazyQuery>;
+export type GetAllItemsQueryResult = Apollo.QueryResult<GetAllItemsQuery, GetAllItemsQueryVariables>;
 export const GetItemByIdDocument = gql`
     query getItemById($id: ID!) {
   getItem(id: $id) {

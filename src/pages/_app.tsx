@@ -1,8 +1,15 @@
 import "@styles/globals.css";
 import type { AppProps } from "next/app";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import styled from "styled-components";
 
 import { Nav } from "@components/nav/nav";
+
+const Wrapper = styled.main`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`;
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({
@@ -13,7 +20,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
       <Nav />
-      <Component {...pageProps} />
+      <Wrapper>
+        <Component {...pageProps} />
+      </Wrapper>
     </ApolloProvider>
   );
 }

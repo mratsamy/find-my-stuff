@@ -1,0 +1,12 @@
+query getAllContainers {
+  containers {
+    containers {
+      id
+      title
+      description
+      shelves {
+        id
+      }
+    }
+  }
+}
