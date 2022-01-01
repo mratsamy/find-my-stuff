@@ -3,7 +3,6 @@ query getAllItems {
     items {
       id
       title
-      description
       quantity
       expiry
     }

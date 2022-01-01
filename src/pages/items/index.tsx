@@ -14,7 +14,6 @@ export default function Items() {
       Header: "Items",
       columns: [
         { Header: "Title", accessor: "title" },
-        { Header: "Description", accessor: "description" },
         { Header: "Quanity", accessor: "quantity" },
         { Header: "Expiration Date", accessor: "expiry" },
       ],

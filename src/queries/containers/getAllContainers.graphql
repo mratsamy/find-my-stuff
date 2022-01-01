@@ -3,7 +3,6 @@ query getAllContainers {
     containers {
       id
       title
-      description
       shelves {
         id
       }

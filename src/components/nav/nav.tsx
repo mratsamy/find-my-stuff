@@ -23,6 +23,7 @@ export function Nav() {
   const links: Link[] = [
     { href: "/", text: "home" },
     { href: "/containers", text: "containers" },
+    { href: "/shelves", text: "shelves" },
     { href: "/items", text: "items" },
   ];
 

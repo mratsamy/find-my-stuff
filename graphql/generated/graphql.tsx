@@ -211,6 +211,11 @@ export type GetItemByIdQueryVariables = Exact<{
 
 export type GetItemByIdQuery = { __typename?: 'Query', getItem?: { __typename?: 'ItemResponse', item?: { __typename?: 'Item', id: string, title: string, description?: string | null | undefined, quantity: any, expiry: any } | null | undefined } | null | undefined };
 
+export type GetAllShelvesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetAllShelvesQuery = { __typename?: 'Query', shelves?: { __typename?: 'ShelvesResponse', shelves: Array<{ __typename?: 'Shelf', id: string, title: string, description?: string | null | undefined, container?: { __typename?: 'Container', id: string, title: string } | null | undefined, items: Array<{ __typename?: 'Item', id: string } | null | undefined> } | null | undefined> } | null | undefined };
+
 
 export const GetAllContainersDocument = gql`
     query getAllContainers {
@@ -334,3 +339,48 @@ export function useGetItemByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetItemByIdQueryHookResult = ReturnType<typeof useGetItemByIdQuery>;
 export type GetItemByIdLazyQueryHookResult = ReturnType<typeof useGetItemByIdLazyQuery>;
 export type GetItemByIdQueryResult = Apollo.QueryResult<GetItemByIdQuery, GetItemByIdQueryVariables>;
+export const GetAllShelvesDocument = gql`
+    query getAllShelves {
+  shelves {
+    shelves {
+      id
+      title
+      description
+      container {
+        id
+        title
+      }
+      items {
+        id
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetAllShelvesQuery__
+ *
+ * To run a query within a React component, call `useGetAllShelvesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetAllShelvesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetAllShelvesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetAllShelvesQuery(baseOptions?: Apollo.QueryHookOptions<GetAllShelvesQuery, GetAllShelvesQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetAllShelvesQuery, GetAllShelvesQueryVariables>(GetAllShelvesDocument, options);
+      }
+export function useGetAllShelvesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetAllShelvesQuery, GetAllShelvesQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetAllShelvesQuery, GetAllShelvesQueryVariables>(GetAllShelvesDocument, options);
+        }
+export type GetAllShelvesQueryHookResult = ReturnType<typeof useGetAllShelvesQuery>;
+export type GetAllShelvesLazyQueryHookResult = ReturnType<typeof useGetAllShelvesLazyQuery>;
+export type GetAllShelvesQueryResult = Apollo.QueryResult<GetAllShelvesQuery, GetAllShelvesQueryVariables>;

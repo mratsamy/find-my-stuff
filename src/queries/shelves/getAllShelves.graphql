@@ -1,0 +1,15 @@
+query getAllShelves {
+  shelves {
+    shelves {
+      id
+      title
+      container {
+        id
+        title
+      }
+      items {
+        id
+      }
+    }
+  }
+}

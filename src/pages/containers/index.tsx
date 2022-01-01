@@ -15,7 +15,6 @@ export default function Containers() {
       Header: "Containers",
       columns: [
         { Header: "Title", accessor: "title" },
-        { Header: "Description", accessor: "description" },
         {
           Header: "Number of Shelves",
           accessor: (row: Container) => row?.shelves?.length ?? 0,
