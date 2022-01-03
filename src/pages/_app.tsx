@@ -4,6 +4,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import styled from "styled-components";
 
 import { Nav } from "@components/nav/nav";
+import { Jumbotron } from "@src/components/jumbotron/Jumbotron";
 
 const Wrapper = styled.main`
   display: flex;
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ApolloProvider client={client}>
+      <Jumbotron />
       <Nav />
       <Wrapper>
         <Component {...pageProps} />
