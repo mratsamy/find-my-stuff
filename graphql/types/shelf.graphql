@@ -37,6 +37,6 @@ type Query {
 }
 
 type Mutation {
-  addShelf(input: NewShelfInput): ShelfResponse
-  updateShelf(input: UpdateShelfInput): ShelfResponse
+  addShelf(input: NewShelfInput!): ShelfResponse
+  updateShelf(input: UpdateShelfInput!): ShelfResponse
 }
