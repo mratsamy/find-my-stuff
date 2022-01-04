@@ -194,15 +194,22 @@ export type UpdateShelfInput = {
   title?: InputMaybe<Scalars['String']>;
 };
 
+export type AddContainerMutationVariables = Exact<{
+  input: NewContainerInput;
+}>;
+
+
+export type AddContainerMutation = { __typename?: 'Mutation', addContainer?: { __typename?: 'ContainerResponse', container?: { __typename?: 'Container', id: string, title: string, shelves?: Array<{ __typename?: 'Shelf', id: string } | null | undefined> | null | undefined } | null | undefined } | null | undefined };
+
 export type GetAllContainersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllContainersQuery = { __typename?: 'Query', containers?: { __typename?: 'ContainersResponse', containers: Array<{ __typename?: 'Container', id: string, title: string, description?: string | null | undefined, shelves?: Array<{ __typename?: 'Shelf', id: string } | null | undefined> | null | undefined } | null | undefined> } | null | undefined };
+export type GetAllContainersQuery = { __typename?: 'Query', containers?: { __typename?: 'ContainersResponse', containers: Array<{ __typename?: 'Container', id: string, title: string, shelves?: Array<{ __typename?: 'Shelf', id: string } | null | undefined> | null | undefined } | null | undefined> } | null | undefined };
 
 export type GetAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllItemsQuery = { __typename?: 'Query', items?: { __typename?: 'ItemsResponse', items: Array<{ __typename?: 'Item', id: string, title: string, description?: string | null | undefined, quantity: any, expiry: any } | null | undefined> } | null | undefined };
+export type GetAllItemsQuery = { __typename?: 'Query', items?: { __typename?: 'ItemsResponse', items: Array<{ __typename?: 'Item', id: string, title: string, quantity: any, expiry: any } | null | undefined> } | null | undefined };
 
 export type GetItemByIdQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -214,16 +221,54 @@ export type GetItemByIdQuery = { __typename?: 'Query', getItem?: { __typename?: 
 export type GetAllShelvesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllShelvesQuery = { __typename?: 'Query', shelves?: { __typename?: 'ShelvesResponse', shelves: Array<{ __typename?: 'Shelf', id: string, title: string, description?: string | null | undefined, container?: { __typename?: 'Container', id: string, title: string } | null | undefined, items: Array<{ __typename?: 'Item', id: string } | null | undefined> } | null | undefined> } | null | undefined };
+export type GetAllShelvesQuery = { __typename?: 'Query', shelves?: { __typename?: 'ShelvesResponse', shelves: Array<{ __typename?: 'Shelf', id: string, title: string, container?: { __typename?: 'Container', id: string, title: string } | null | undefined, items: Array<{ __typename?: 'Item', id: string } | null | undefined> } | null | undefined> } | null | undefined };
 
 
+export const AddContainerDocument = gql`
+    mutation addContainer($input: NewContainerInput!) {
+  addContainer(input: $input) {
+    container {
+      id
+      title
+      shelves {
+        id
+      }
+    }
+  }
+}
+    `;
+export type AddContainerMutationFn = Apollo.MutationFunction<AddContainerMutation, AddContainerMutationVariables>;
+
+/**
+ * __useAddContainerMutation__
+ *
+ * To run a mutation, you first call `useAddContainerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddContainerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addContainerMutation, { data, loading, error }] = useAddContainerMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddContainerMutation(baseOptions?: Apollo.MutationHookOptions<AddContainerMutation, AddContainerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddContainerMutation, AddContainerMutationVariables>(AddContainerDocument, options);
+      }
+export type AddContainerMutationHookResult = ReturnType<typeof useAddContainerMutation>;
+export type AddContainerMutationResult = Apollo.MutationResult<AddContainerMutation>;
+export type AddContainerMutationOptions = Apollo.BaseMutationOptions<AddContainerMutation, AddContainerMutationVariables>;
 export const GetAllContainersDocument = gql`
     query getAllContainers {
   containers {
     containers {
       id
       title
-      description
       shelves {
         id
       }
@@ -264,7 +309,6 @@ export const GetAllItemsDocument = gql`
     items {
       id
       title
-      description
       quantity
       expiry
     }
@@ -345,7 +389,6 @@ export const GetAllShelvesDocument = gql`
     shelves {
       id
       title
-      description
       container {
         id
         title
