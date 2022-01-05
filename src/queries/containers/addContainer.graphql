@@ -1,0 +1,11 @@
+mutation addContainer($input: NewContainerInput!) {
+  addContainer(input: $input) {
+    container {
+      id
+      title
+      shelves {
+        id
+      }
+    }
+  }
+}

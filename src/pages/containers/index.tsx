@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 import {
@@ -14,8 +14,17 @@ import { AddButton } from "@src/components/buttons/add/AddButton";
 import { AddContainer } from "@src/components/forms/Containers/AddContainer";
 
 export default function Containers() {
-  const { data, error, loading } = useGetAllContainersQuery();
-  const [showModal, setShowModal] = useState(true);
+  const { data, error, loading, refetch } = useGetAllContainersQuery();
+  const [showModal, setShowModal] = useState(false);
+  const closedOnceModalRef = useRef<boolean | null>(null);
+
+  useEffect(() => {
+    if (closedOnceModalRef.current == null) {
+      closedOnceModalRef.current = true;
+    } else {
+      if (showModal == false) refetch();
+    }
+  }, [showModal, refetch]);
 
   const columns = [
     {

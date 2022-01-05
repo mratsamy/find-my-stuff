@@ -24,7 +24,7 @@ export type Container = {
   createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  shelves?: Maybe<Array<Maybe<Shelf>>>;
+  shelves: Array<Maybe<Shelf>>;
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
@@ -77,7 +77,7 @@ export type Mutation = {
 
 
 export type MutationAddContainerArgs = {
-  input?: InputMaybe<NewContainerInput>;
+  input: NewContainerInput;
 };
 
 
@@ -87,12 +87,12 @@ export type MutationAddItemArgs = {
 
 
 export type MutationAddShelfArgs = {
-  input?: InputMaybe<NewShelfInput>;
+  input: NewShelfInput;
 };
 
 
 export type MutationUpdateContainerArgs = {
-  input?: InputMaybe<UpdateContainerInput>;
+  input: UpdateContainerInput;
 };
 
 
@@ -102,7 +102,7 @@ export type MutationUpdateItemArgs = {
 
 
 export type MutationUpdateShelfArgs = {
-  input?: InputMaybe<UpdateShelfInput>;
+  input: UpdateShelfInput;
 };
 
 export type NewContainerInput = {
@@ -199,12 +199,12 @@ export type AddContainerMutationVariables = Exact<{
 }>;
 
 
-export type AddContainerMutation = { __typename?: 'Mutation', addContainer?: { __typename?: 'ContainerResponse', container?: { __typename?: 'Container', id: string, title: string, shelves?: Array<{ __typename?: 'Shelf', id: string } | null | undefined> | null | undefined } | null | undefined } | null | undefined };
+export type AddContainerMutation = { __typename?: 'Mutation', addContainer?: { __typename?: 'ContainerResponse', container?: { __typename?: 'Container', id: string, title: string, shelves: Array<{ __typename?: 'Shelf', id: string } | null | undefined> } | null | undefined } | null | undefined };
 
 export type GetAllContainersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllContainersQuery = { __typename?: 'Query', containers?: { __typename?: 'ContainersResponse', containers: Array<{ __typename?: 'Container', id: string, title: string, shelves?: Array<{ __typename?: 'Shelf', id: string } | null | undefined> | null | undefined } | null | undefined> } | null | undefined };
+export type GetAllContainersQuery = { __typename?: 'Query', containers?: { __typename?: 'ContainersResponse', containers: Array<{ __typename?: 'Container', id: string, title: string, shelves: Array<{ __typename?: 'Shelf', id: string } | null | undefined> } | null | undefined> } | null | undefined };
 
 export type GetAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
 

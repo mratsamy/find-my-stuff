@@ -2,7 +2,7 @@ type Container {
   id: ID!
   title: String!
   description: String
-  shelves: [Shelf]
+  shelves: [Shelf]!
   createdAt: DateTime!
   updatedAt: DateTime!
 }

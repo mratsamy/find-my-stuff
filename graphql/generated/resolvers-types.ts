@@ -24,7 +24,7 @@ export type Container = {
   createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
-  shelves?: Maybe<Array<Maybe<Shelf>>>;
+  shelves: Array<Maybe<Shelf>>;
   title: Scalars['String'];
   updatedAt: Scalars['DateTime'];
 };
@@ -77,7 +77,7 @@ export type Mutation = {
 
 
 export type MutationAddContainerArgs = {
-  input?: InputMaybe<NewContainerInput>;
+  input: NewContainerInput;
 };
 
 
@@ -87,12 +87,12 @@ export type MutationAddItemArgs = {
 
 
 export type MutationAddShelfArgs = {
-  input?: InputMaybe<NewShelfInput>;
+  input: NewShelfInput;
 };
 
 
 export type MutationUpdateContainerArgs = {
-  input?: InputMaybe<UpdateContainerInput>;
+  input: UpdateContainerInput;
 };
 
 
@@ -102,7 +102,7 @@ export type MutationUpdateItemArgs = {
 
 
 export type MutationUpdateShelfArgs = {
-  input?: InputMaybe<UpdateShelfInput>;
+  input: UpdateShelfInput;
 };
 
 export type NewContainerInput = {
@@ -318,7 +318,7 @@ export type ContainerResolvers<ContextType = Context, ParentType extends Resolve
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  shelves?: Resolver<Maybe<Array<Maybe<ResolversTypes['Shelf']>>>, ParentType, ContextType>;
+  shelves?: Resolver<Array<Maybe<ResolversTypes['Shelf']>>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -365,12 +365,12 @@ export type ItemsResponseResolvers<ContextType = Context, ParentType extends Res
 }>;
 
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
-  addContainer?: Resolver<Maybe<ResolversTypes['ContainerResponse']>, ParentType, ContextType, RequireFields<MutationAddContainerArgs, never>>;
+  addContainer?: Resolver<Maybe<ResolversTypes['ContainerResponse']>, ParentType, ContextType, RequireFields<MutationAddContainerArgs, 'input'>>;
   addItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<MutationAddItemArgs, 'input'>>;
-  addShelf?: Resolver<Maybe<ResolversTypes['ShelfResponse']>, ParentType, ContextType, RequireFields<MutationAddShelfArgs, never>>;
-  updateContainer?: Resolver<Maybe<ResolversTypes['ContainerResponse']>, ParentType, ContextType, RequireFields<MutationUpdateContainerArgs, never>>;
+  addShelf?: Resolver<Maybe<ResolversTypes['ShelfResponse']>, ParentType, ContextType, RequireFields<MutationAddShelfArgs, 'input'>>;
+  updateContainer?: Resolver<Maybe<ResolversTypes['ContainerResponse']>, ParentType, ContextType, RequireFields<MutationUpdateContainerArgs, 'input'>>;
   updateItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<MutationUpdateItemArgs, 'input'>>;
-  updateShelf?: Resolver<Maybe<ResolversTypes['ShelfResponse']>, ParentType, ContextType, RequireFields<MutationUpdateShelfArgs, never>>;
+  updateShelf?: Resolver<Maybe<ResolversTypes['ShelfResponse']>, ParentType, ContextType, RequireFields<MutationUpdateShelfArgs, 'input'>>;
 }>;
 
 export interface NonNegativeIntScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['NonNegativeInt'], any> {
