@@ -7,8 +7,10 @@ const Link = styled.div`
   padding: 1em;
 `;
 
-export default function Back() {
+export function Back() {
   const router = useRouter();
 
   return <Link onClick={() => router.back()}>&lt; Back</Link>;
 }
+
+export default Back;

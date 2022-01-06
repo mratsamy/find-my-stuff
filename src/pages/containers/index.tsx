@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import Link from "next/link";
 
 import {
   useGetAllContainersQuery,
@@ -12,19 +13,21 @@ import EmptyPrompt from "@src/components/emptyPrompt/EmptyPrompt";
 import { Modal } from "@src/components/modal/Modal";
 import { AddButton } from "@src/components/buttons/add/AddButton";
 import { AddContainer } from "@src/components/forms/Containers/AddContainer";
+import {
+  ActionButton,
+  ACTION_TYPES,
+} from "@src/components/buttons/action/Action";
 
 export default function Containers() {
-  const { data, error, loading, refetch } = useGetAllContainersQuery();
+  const { data, error, loading } = useGetAllContainersQuery();
   const [showModal, setShowModal] = useState(false);
   const closedOnceModalRef = useRef<boolean | null>(null);
 
   useEffect(() => {
     if (closedOnceModalRef.current == null) {
       closedOnceModalRef.current = true;
-    } else {
-      if (showModal == false) refetch();
     }
-  }, [showModal, refetch]);
+  }, [showModal]);
 
   const columns = [
     {
@@ -33,7 +36,11 @@ export default function Containers() {
         { Header: "Title", accessor: "title" },
         {
           Header: "Number of Shelves",
-          accessor: (row: Container) => row?.shelves?.length ?? 0,
+          accessor: (row: Container) => row.shelves.length ?? 0,
+        },
+        {
+          Header: "Actions",
+          accessor: (row: Container) => <ButtonRow row={row} />,
         },
       ],
     },
@@ -59,6 +66,28 @@ export default function Containers() {
       >
         <AddContainer />
       </Modal>
+    </>
+  );
+}
+
+function ButtonRow(props: { row: Container }) {
+  return (
+    <>
+      <Link href={`/containers/${props.row.id}`} passHref={true}>
+        <ActionButton type={ACTION_TYPES.VIEW}>View</ActionButton>
+      </Link>
+      <ActionButton
+        type={ACTION_TYPES.EDIT}
+        action={() => console.log("called")}
+      >
+        Edit
+      </ActionButton>
+      <ActionButton
+        type={ACTION_TYPES.DELETE}
+        action={() => console.log("called")}
+      >
+        Delete
+      </ActionButton>
     </>
   );
 }

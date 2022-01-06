@@ -8,6 +8,7 @@ import {
 import {
   Queries as ContainerQueries,
   Mutations as ContainerMutations,
+  TopLevelResolvers as ContainerTopLevelResolvers,
 } from "./resolvers/container";
 
 import {
@@ -18,6 +19,7 @@ import {
 const resolvers = {
   DateTime: GraphQLDateTime,
   NonNegativeInt: GraphQLNonNegativeInt,
+  ...ContainerTopLevelResolvers,
   Query: {
     ...ItemQueries,
     ...ContainerQueries,

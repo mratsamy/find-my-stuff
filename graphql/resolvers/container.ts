@@ -4,6 +4,7 @@ import type {
   Container,
 } from "@graphql/generated/resolvers-types";
 import type { Prisma } from "@prisma/client";
+import type { Graphql } from "types/graphql";
 
 export const Queries: NonNullable<QueryResolvers> = {
   async getContainer(_parent, { id }, { prisma }, _info) {
@@ -42,5 +43,15 @@ export const Mutations: MutationResolvers = {
     })) as Container | null;
 
     return { container };
+  },
+};
+
+export const TopLevelResolvers = {
+  Container: {
+    shelves(parent: { id: string }, _args: any, { prisma }: Graphql.Context) {
+      return prisma.shelf.findMany({
+        where: { containerId: parent.id },
+      });
+    },
   },
 };

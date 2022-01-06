@@ -21,4 +21,8 @@ const Button = styled.button`
   border: none;
   padding: 1rem 1.75rem;
   font-size: 1rem;
+
+  &:hover {
+    opacity: 0.5;
+  }
 `;

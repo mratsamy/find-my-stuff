@@ -7,8 +7,6 @@ import { useEventListener } from "@src/hooks";
 import {
   GetAllContainersDocument,
   useAddContainerMutation,
-  ContainersResponse,
-  AddContainerMutation,
 } from "@graphql/generated/graphql";
 import { LoadingSpinner } from "@src/components/loading/LoadingSpinner";
 
@@ -33,19 +31,7 @@ export function AddContainer() {
   const onSubmit = (values: { title: string; description: string }) => {
     return performMutation({
       variables: { input: values },
-      // @ts-ignore
-      update(cache, { data: { addContainer } }) {
-        var data = cache.readQuery<ContainersResponse>({
-          query: GetAllContainersDocument,
-        });
-
-        if (!data) {
-          data = { containers: [] };
-        }
-
-        data.containers = [...(data?.containers ?? []), addContainer.container];
-        cache.writeQuery({ query: GetAllContainersDocument, data });
-      },
+      refetchQueries: [GetAllContainersDocument],
     });
   };
 
