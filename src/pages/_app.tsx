@@ -1,8 +1,9 @@
 import "@styles/globals.css";
 import type { AppProps } from "next/app";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client";
 import styled from "styled-components";
 
+import { client } from "@src/components/apolloClient/ApolloClient";
 import { Nav } from "@components/nav/nav";
 import { Jumbotron } from "@src/components/jumbotron/Jumbotron";
 
@@ -13,11 +14,6 @@ const Wrapper = styled.main`
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const client = new ApolloClient({
-    cache: new InMemoryCache(),
-    uri: process.env.NEXT_PUBLIC_GRAPHQL_URL,
-  });
-
   return (
     <ApolloProvider client={client}>
       <Jumbotron />
