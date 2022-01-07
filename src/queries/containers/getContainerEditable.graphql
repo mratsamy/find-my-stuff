@@ -1,0 +1,9 @@
+query getContainerEditable($id: ID!) {
+  getContainer(id: $id) {
+    container {
+      id
+      title
+      description
+    }
+  }
+}

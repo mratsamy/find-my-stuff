@@ -1,0 +1,8 @@
+mutation deleteContainer($id: ID!) {
+  deleteContainer(id: $id) {
+    container {
+      id
+      title
+    }
+  }
+}

@@ -44,11 +44,11 @@ const Button = styled.button`
   }
 
   &[data-type="delete"] {
-    background-color: red;
+    background-color: #dc3545;
   }
 
   &[data-type="edit"] {
-    background-color: green;
+    background-color: #198754;
   }
 
   &[data-type="view"] {
