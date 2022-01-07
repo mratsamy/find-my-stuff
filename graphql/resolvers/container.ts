@@ -44,6 +44,13 @@ export const Mutations: MutationResolvers = {
 
     return { container };
   },
+  async deleteContainer(_parent, { id }, { prisma }, _info) {
+    const container = (await prisma.container.delete({
+      where: { id },
+    })) as Container;
+
+    return { container };
+  },
 };
 
 export const TopLevelResolvers = {

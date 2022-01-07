@@ -70,6 +70,7 @@ export type Mutation = {
   addContainer?: Maybe<ContainerResponse>;
   addItem?: Maybe<ItemResponse>;
   addShelf?: Maybe<ShelfResponse>;
+  deleteContainer?: Maybe<ContainerResponse>;
   updateContainer?: Maybe<ContainerResponse>;
   updateItem?: Maybe<ItemResponse>;
   updateShelf?: Maybe<ShelfResponse>;
@@ -88,6 +89,11 @@ export type MutationAddItemArgs = {
 
 export type MutationAddShelfArgs = {
   input: NewShelfInput;
+};
+
+
+export type MutationDeleteContainerArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -201,10 +207,31 @@ export type AddContainerMutationVariables = Exact<{
 
 export type AddContainerMutation = { __typename?: 'Mutation', addContainer?: { __typename?: 'ContainerResponse', container?: { __typename?: 'Container', id: string, title: string, shelves: Array<{ __typename?: 'Shelf', id: string } | null | undefined> } | null | undefined } | null | undefined };
 
+export type DeleteContainerMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteContainerMutation = { __typename?: 'Mutation', deleteContainer?: { __typename?: 'ContainerResponse', container?: { __typename?: 'Container', id: string, title: string } | null | undefined } | null | undefined };
+
 export type GetAllContainersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllContainersQuery = { __typename?: 'Query', containers?: { __typename?: 'ContainersResponse', containers: Array<{ __typename?: 'Container', id: string, title: string, shelves: Array<{ __typename?: 'Shelf', id: string } | null | undefined> } | null | undefined> } | null | undefined };
+
+export type GetContainerEditableQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetContainerEditableQuery = { __typename?: 'Query', getContainer?: { __typename?: 'ContainerResponse', container?: { __typename?: 'Container', id: string, title: string, description?: string | null | undefined } | null | undefined } | null | undefined };
+
+export type UpdateContainerMutationVariables = Exact<{
+  input: UpdateContainerInput;
+}>;
+
+
+export type UpdateContainerMutation = { __typename?: 'Mutation', updateContainer?: { __typename?: 'ContainerResponse', container?: { __typename?: 'Container', id: string, title: string } | null | undefined } | null | undefined };
 
 export type GetAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -263,6 +290,42 @@ export function useAddContainerMutation(baseOptions?: Apollo.MutationHookOptions
 export type AddContainerMutationHookResult = ReturnType<typeof useAddContainerMutation>;
 export type AddContainerMutationResult = Apollo.MutationResult<AddContainerMutation>;
 export type AddContainerMutationOptions = Apollo.BaseMutationOptions<AddContainerMutation, AddContainerMutationVariables>;
+export const DeleteContainerDocument = gql`
+    mutation deleteContainer($id: ID!) {
+  deleteContainer(id: $id) {
+    container {
+      id
+      title
+    }
+  }
+}
+    `;
+export type DeleteContainerMutationFn = Apollo.MutationFunction<DeleteContainerMutation, DeleteContainerMutationVariables>;
+
+/**
+ * __useDeleteContainerMutation__
+ *
+ * To run a mutation, you first call `useDeleteContainerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteContainerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteContainerMutation, { data, loading, error }] = useDeleteContainerMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteContainerMutation(baseOptions?: Apollo.MutationHookOptions<DeleteContainerMutation, DeleteContainerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteContainerMutation, DeleteContainerMutationVariables>(DeleteContainerDocument, options);
+      }
+export type DeleteContainerMutationHookResult = ReturnType<typeof useDeleteContainerMutation>;
+export type DeleteContainerMutationResult = Apollo.MutationResult<DeleteContainerMutation>;
+export type DeleteContainerMutationOptions = Apollo.BaseMutationOptions<DeleteContainerMutation, DeleteContainerMutationVariables>;
 export const GetAllContainersDocument = gql`
     query getAllContainers {
   containers {
@@ -303,6 +366,81 @@ export function useGetAllContainersLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetAllContainersQueryHookResult = ReturnType<typeof useGetAllContainersQuery>;
 export type GetAllContainersLazyQueryHookResult = ReturnType<typeof useGetAllContainersLazyQuery>;
 export type GetAllContainersQueryResult = Apollo.QueryResult<GetAllContainersQuery, GetAllContainersQueryVariables>;
+export const GetContainerEditableDocument = gql`
+    query getContainerEditable($id: ID!) {
+  getContainer(id: $id) {
+    container {
+      id
+      title
+      description
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetContainerEditableQuery__
+ *
+ * To run a query within a React component, call `useGetContainerEditableQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContainerEditableQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContainerEditableQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetContainerEditableQuery(baseOptions: Apollo.QueryHookOptions<GetContainerEditableQuery, GetContainerEditableQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetContainerEditableQuery, GetContainerEditableQueryVariables>(GetContainerEditableDocument, options);
+      }
+export function useGetContainerEditableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetContainerEditableQuery, GetContainerEditableQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetContainerEditableQuery, GetContainerEditableQueryVariables>(GetContainerEditableDocument, options);
+        }
+export type GetContainerEditableQueryHookResult = ReturnType<typeof useGetContainerEditableQuery>;
+export type GetContainerEditableLazyQueryHookResult = ReturnType<typeof useGetContainerEditableLazyQuery>;
+export type GetContainerEditableQueryResult = Apollo.QueryResult<GetContainerEditableQuery, GetContainerEditableQueryVariables>;
+export const UpdateContainerDocument = gql`
+    mutation updateContainer($input: UpdateContainerInput!) {
+  updateContainer(input: $input) {
+    container {
+      id
+      title
+    }
+  }
+}
+    `;
+export type UpdateContainerMutationFn = Apollo.MutationFunction<UpdateContainerMutation, UpdateContainerMutationVariables>;
+
+/**
+ * __useUpdateContainerMutation__
+ *
+ * To run a mutation, you first call `useUpdateContainerMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateContainerMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateContainerMutation, { data, loading, error }] = useUpdateContainerMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateContainerMutation(baseOptions?: Apollo.MutationHookOptions<UpdateContainerMutation, UpdateContainerMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateContainerMutation, UpdateContainerMutationVariables>(UpdateContainerDocument, options);
+      }
+export type UpdateContainerMutationHookResult = ReturnType<typeof useUpdateContainerMutation>;
+export type UpdateContainerMutationResult = Apollo.MutationResult<UpdateContainerMutation>;
+export type UpdateContainerMutationOptions = Apollo.BaseMutationOptions<UpdateContainerMutation, UpdateContainerMutationVariables>;
 export const GetAllItemsDocument = gql`
     query getAllItems {
   items {

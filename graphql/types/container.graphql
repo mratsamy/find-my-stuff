@@ -36,4 +36,5 @@ type Query {
 type Mutation {
   addContainer(input: NewContainerInput!): ContainerResponse
   updateContainer(input: UpdateContainerInput!): ContainerResponse
+  deleteContainer(id: ID!): ContainerResponse
 }
