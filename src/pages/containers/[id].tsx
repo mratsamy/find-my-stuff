@@ -1,5 +1,6 @@
 import type { GetServerSidePropsContext } from "next";
 import styled from "styled-components";
+import Link from "next/link";
 
 import Back from "@components/buttons/back/Back";
 import { client } from "@components/apolloClient/ApolloClient";
@@ -22,7 +23,17 @@ export default function Container(props: Props) {
 
   return (
     <OuterWrapper>
-      <Back />
+      <LinksWrapper>
+        <Back />
+        <Link
+          href={{
+            pathname: "/containers",
+            query: { edit: container?.id ?? "" },
+          }}
+        >
+          <a>Edit Container</a>
+        </Link>
+      </LinksWrapper>
       <ContentWrapper>
         <TextField fieldName="ID" value={container?.id ?? ""} />
         <TextField fieldName="Title" value={container?.title ?? ""} />
@@ -69,4 +80,17 @@ const OuterWrapper = styled.div`
 
 const ContentWrapper = styled.div`
   align-self: center;
+`;
+
+const LinksWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+
+  a {
+    color: dodgerblue;
+    cursor: pointer;
+    padding: 1em;
+  }
 `;

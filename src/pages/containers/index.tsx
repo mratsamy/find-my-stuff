@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 import {
   useGetAllContainersQuery,
@@ -17,13 +18,17 @@ import { EditContainer } from "@src/components/forms/Containers/EditContainer";
 import { DeleteContainer } from "@src/components/forms/Containers/DeleteContainer";
 
 export default function Containers() {
+  const { query } = useRouter();
+  const defaultEditId =
+    (Array.isArray(query?.edit) ? query.edit[0] : query.edit) ?? null;
+
   const { data, error, loading } = useGetAllContainersQuery();
   const [showAddModal, setShowAddModal] = useState(false);
-  const [showEditModal, setShowEditModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(defaultEditId !== null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [deleteTitle, setDeleteTitle] = useState("");
-  const [editId, setEditId] = useState<string | null>(null);
+  const [editId, setEditId] = useState<string | null>(defaultEditId);
   const closedOnceModalRef = useRef<boolean | null>(null);
 
   useEffect(() => {
