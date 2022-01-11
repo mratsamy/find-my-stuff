@@ -1,0 +1,9 @@
+query getShelfEditable($id: ID!) {
+  getShelf(id: $id) {
+    shelf {
+      id
+      title
+      description
+    }
+  }
+}

@@ -71,6 +71,7 @@ export type Mutation = {
   addItem?: Maybe<ItemResponse>;
   addShelf?: Maybe<ShelfResponse>;
   deleteContainer?: Maybe<ContainerResponse>;
+  deleteShelf?: Maybe<ShelfResponse>;
   updateContainer?: Maybe<ContainerResponse>;
   updateItem?: Maybe<ItemResponse>;
   updateShelf?: Maybe<ShelfResponse>;
@@ -93,6 +94,11 @@ export type MutationAddShelfArgs = {
 
 
 export type MutationDeleteContainerArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteShelfArgs = {
   id: Scalars['ID'];
 };
 
@@ -252,10 +258,38 @@ export type GetItemByIdQueryVariables = Exact<{
 
 export type GetItemByIdQuery = { __typename?: 'Query', getItem?: { __typename?: 'ItemResponse', item?: { __typename?: 'Item', id: string, title: string, description?: string | null | undefined, quantity: any, expiry: any } | null | undefined } | null | undefined };
 
+export type AddShelfMutationVariables = Exact<{
+  input: NewShelfInput;
+}>;
+
+
+export type AddShelfMutation = { __typename?: 'Mutation', addShelf?: { __typename?: 'ShelfResponse', shelf?: { __typename?: 'Shelf', id: string, title: string } | null | undefined } | null | undefined };
+
+export type DeleteShelfMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteShelfMutation = { __typename?: 'Mutation', deleteShelf?: { __typename?: 'ShelfResponse', shelf?: { __typename?: 'Shelf', id: string, title: string } | null | undefined } | null | undefined };
+
 export type GetAllShelvesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllShelvesQuery = { __typename?: 'Query', shelves?: { __typename?: 'ShelvesResponse', shelves: Array<{ __typename?: 'Shelf', id: string, title: string, container?: { __typename?: 'Container', id: string, title: string } | null | undefined, items: Array<{ __typename?: 'Item', id: string } | null | undefined> } | null | undefined> } | null | undefined };
+
+export type GetShelfEditableQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetShelfEditableQuery = { __typename?: 'Query', getShelf?: { __typename?: 'ShelfResponse', shelf?: { __typename?: 'Shelf', id: string, title: string, description?: string | null | undefined } | null | undefined } | null | undefined };
+
+export type UpdateShelfMutationVariables = Exact<{
+  input: UpdateShelfInput;
+}>;
+
+
+export type UpdateShelfMutation = { __typename?: 'Mutation', updateShelf?: { __typename?: 'ShelfResponse', shelf?: { __typename?: 'Shelf', id: string, title: string } | null | undefined } | null | undefined };
 
 
 export const AddContainerDocument = gql`
@@ -573,6 +607,78 @@ export function useGetItemByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type GetItemByIdQueryHookResult = ReturnType<typeof useGetItemByIdQuery>;
 export type GetItemByIdLazyQueryHookResult = ReturnType<typeof useGetItemByIdLazyQuery>;
 export type GetItemByIdQueryResult = Apollo.QueryResult<GetItemByIdQuery, GetItemByIdQueryVariables>;
+export const AddShelfDocument = gql`
+    mutation addShelf($input: NewShelfInput!) {
+  addShelf(input: $input) {
+    shelf {
+      id
+      title
+    }
+  }
+}
+    `;
+export type AddShelfMutationFn = Apollo.MutationFunction<AddShelfMutation, AddShelfMutationVariables>;
+
+/**
+ * __useAddShelfMutation__
+ *
+ * To run a mutation, you first call `useAddShelfMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAddShelfMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [addShelfMutation, { data, loading, error }] = useAddShelfMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useAddShelfMutation(baseOptions?: Apollo.MutationHookOptions<AddShelfMutation, AddShelfMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<AddShelfMutation, AddShelfMutationVariables>(AddShelfDocument, options);
+      }
+export type AddShelfMutationHookResult = ReturnType<typeof useAddShelfMutation>;
+export type AddShelfMutationResult = Apollo.MutationResult<AddShelfMutation>;
+export type AddShelfMutationOptions = Apollo.BaseMutationOptions<AddShelfMutation, AddShelfMutationVariables>;
+export const DeleteShelfDocument = gql`
+    mutation deleteShelf($id: ID!) {
+  deleteShelf(id: $id) {
+    shelf {
+      id
+      title
+    }
+  }
+}
+    `;
+export type DeleteShelfMutationFn = Apollo.MutationFunction<DeleteShelfMutation, DeleteShelfMutationVariables>;
+
+/**
+ * __useDeleteShelfMutation__
+ *
+ * To run a mutation, you first call `useDeleteShelfMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteShelfMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteShelfMutation, { data, loading, error }] = useDeleteShelfMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteShelfMutation(baseOptions?: Apollo.MutationHookOptions<DeleteShelfMutation, DeleteShelfMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteShelfMutation, DeleteShelfMutationVariables>(DeleteShelfDocument, options);
+      }
+export type DeleteShelfMutationHookResult = ReturnType<typeof useDeleteShelfMutation>;
+export type DeleteShelfMutationResult = Apollo.MutationResult<DeleteShelfMutation>;
+export type DeleteShelfMutationOptions = Apollo.BaseMutationOptions<DeleteShelfMutation, DeleteShelfMutationVariables>;
 export const GetAllShelvesDocument = gql`
     query getAllShelves {
   shelves {
@@ -617,3 +723,78 @@ export function useGetAllShelvesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetAllShelvesQueryHookResult = ReturnType<typeof useGetAllShelvesQuery>;
 export type GetAllShelvesLazyQueryHookResult = ReturnType<typeof useGetAllShelvesLazyQuery>;
 export type GetAllShelvesQueryResult = Apollo.QueryResult<GetAllShelvesQuery, GetAllShelvesQueryVariables>;
+export const GetShelfEditableDocument = gql`
+    query getShelfEditable($id: ID!) {
+  getShelf(id: $id) {
+    shelf {
+      id
+      title
+      description
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetShelfEditableQuery__
+ *
+ * To run a query within a React component, call `useGetShelfEditableQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetShelfEditableQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetShelfEditableQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetShelfEditableQuery(baseOptions: Apollo.QueryHookOptions<GetShelfEditableQuery, GetShelfEditableQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetShelfEditableQuery, GetShelfEditableQueryVariables>(GetShelfEditableDocument, options);
+      }
+export function useGetShelfEditableLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetShelfEditableQuery, GetShelfEditableQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetShelfEditableQuery, GetShelfEditableQueryVariables>(GetShelfEditableDocument, options);
+        }
+export type GetShelfEditableQueryHookResult = ReturnType<typeof useGetShelfEditableQuery>;
+export type GetShelfEditableLazyQueryHookResult = ReturnType<typeof useGetShelfEditableLazyQuery>;
+export type GetShelfEditableQueryResult = Apollo.QueryResult<GetShelfEditableQuery, GetShelfEditableQueryVariables>;
+export const UpdateShelfDocument = gql`
+    mutation updateShelf($input: UpdateShelfInput!) {
+  updateShelf(input: $input) {
+    shelf {
+      id
+      title
+    }
+  }
+}
+    `;
+export type UpdateShelfMutationFn = Apollo.MutationFunction<UpdateShelfMutation, UpdateShelfMutationVariables>;
+
+/**
+ * __useUpdateShelfMutation__
+ *
+ * To run a mutation, you first call `useUpdateShelfMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateShelfMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateShelfMutation, { data, loading, error }] = useUpdateShelfMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useUpdateShelfMutation(baseOptions?: Apollo.MutationHookOptions<UpdateShelfMutation, UpdateShelfMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateShelfMutation, UpdateShelfMutationVariables>(UpdateShelfDocument, options);
+      }
+export type UpdateShelfMutationHookResult = ReturnType<typeof useUpdateShelfMutation>;
+export type UpdateShelfMutationResult = Apollo.MutationResult<UpdateShelfMutation>;
+export type UpdateShelfMutationOptions = Apollo.BaseMutationOptions<UpdateShelfMutation, UpdateShelfMutationVariables>;

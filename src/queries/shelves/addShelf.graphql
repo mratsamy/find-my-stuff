@@ -1,0 +1,8 @@
+mutation addShelf($input: NewShelfInput!) {
+  addShelf(input: $input) {
+    shelf {
+      id
+      title
+    }
+  }
+}

@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 
 import {
   useGetAllContainersQuery,
   Container,
 } from "@graphql/generated/graphql";
+import { useNextQueryParam } from "@src/hooks";
 import Loading from "@src/components/loading/Loading";
 import ErrorResponse from "@src/components/errorResponse/ErrorResponse";
 import Table from "@src/components/table/Table";
@@ -18,10 +18,7 @@ import { EditContainer } from "@src/components/forms/Containers/EditContainer";
 import { DeleteContainer } from "@src/components/forms/Containers/DeleteContainer";
 
 export default function Containers() {
-  const { query } = useRouter();
-  const defaultEditId =
-    (Array.isArray(query?.edit) ? query.edit[0] : query.edit) ?? null;
-
+  const defaultEditId = useNextQueryParam("edit");
   const { data, error, loading } = useGetAllContainersQuery();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(defaultEditId !== null);

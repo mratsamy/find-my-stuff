@@ -14,12 +14,14 @@ import {
 import {
   Queries as ShelfQueries,
   Mutations as ShelfMutations,
+  TopLevelResolvers as ShelfTopLevelResolvers,
 } from "./resolvers/shelf";
 
 const resolvers = {
   DateTime: GraphQLDateTime,
   NonNegativeInt: GraphQLNonNegativeInt,
   ...ContainerTopLevelResolvers,
+  ...ShelfTopLevelResolvers,
   Query: {
     ...ItemQueries,
     ...ContainerQueries,

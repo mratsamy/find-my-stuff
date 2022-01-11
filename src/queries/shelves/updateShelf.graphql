@@ -1,0 +1,8 @@
+mutation updateShelf($input: UpdateShelfInput!) {
+  updateShelf(input: $input) {
+    shelf {
+      id
+      title
+    }
+  }
+}

@@ -1,8 +1,10 @@
 import type {
   MutationResolvers,
   QueryResolvers,
+  Shelf,
 } from "@graphql/generated/resolvers-types";
 import type { Prisma } from "@prisma/client";
+import type { Graphql } from "types/graphql";
 
 export const Queries: QueryResolvers = {
   async shelves(_parent, _args, { prisma }, _info) {
@@ -36,9 +38,20 @@ export const Mutations: MutationResolvers = {
     };
   },
 
+  async deleteShelf(_parent, { id }, { prisma }, _info) {
+    if (!id) return { shelf: null };
+
+    const shelf = (await prisma.shelf.delete({
+      where: { id },
+    })) as unknown as Shelf;
+
+    return { shelf };
+  },
+
   async updateShelf(_parent, { input }, { prisma }, _info) {
     if (!input) return { shelf: null };
     const { id, ...data } = input;
+    prisma.item;
 
     const shelf = await prisma.shelf.update({
       data: { ...(data as Prisma.ShelfUpdateInput) },
@@ -47,5 +60,15 @@ export const Mutations: MutationResolvers = {
     });
 
     return { shelf };
+  },
+};
+
+export const TopLevelResolvers = {
+  Shelf: {
+    items(parent: { id: string }, _args: any, { prisma }: Graphql.Context) {
+      return prisma.item.findMany({
+        where: { shelfId: parent.id },
+      });
+    },
   },
 };

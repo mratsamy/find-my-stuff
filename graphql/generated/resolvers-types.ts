@@ -71,6 +71,7 @@ export type Mutation = {
   addItem?: Maybe<ItemResponse>;
   addShelf?: Maybe<ShelfResponse>;
   deleteContainer?: Maybe<ContainerResponse>;
+  deleteShelf?: Maybe<ShelfResponse>;
   updateContainer?: Maybe<ContainerResponse>;
   updateItem?: Maybe<ItemResponse>;
   updateShelf?: Maybe<ShelfResponse>;
@@ -93,6 +94,11 @@ export type MutationAddShelfArgs = {
 
 
 export type MutationDeleteContainerArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type MutationDeleteShelfArgs = {
   id: Scalars['ID'];
 };
 
@@ -375,6 +381,7 @@ export type MutationResolvers<ContextType = Context, ParentType extends Resolver
   addItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<MutationAddItemArgs, 'input'>>;
   addShelf?: Resolver<Maybe<ResolversTypes['ShelfResponse']>, ParentType, ContextType, RequireFields<MutationAddShelfArgs, 'input'>>;
   deleteContainer?: Resolver<Maybe<ResolversTypes['ContainerResponse']>, ParentType, ContextType, RequireFields<MutationDeleteContainerArgs, 'id'>>;
+  deleteShelf?: Resolver<Maybe<ResolversTypes['ShelfResponse']>, ParentType, ContextType, RequireFields<MutationDeleteShelfArgs, 'id'>>;
   updateContainer?: Resolver<Maybe<ResolversTypes['ContainerResponse']>, ParentType, ContextType, RequireFields<MutationUpdateContainerArgs, 'input'>>;
   updateItem?: Resolver<Maybe<ResolversTypes['ItemResponse']>, ParentType, ContextType, RequireFields<MutationUpdateItemArgs, 'input'>>;
   updateShelf?: Resolver<Maybe<ResolversTypes['ShelfResponse']>, ParentType, ContextType, RequireFields<MutationUpdateShelfArgs, 'input'>>;

@@ -1,0 +1,8 @@
+mutation deleteShelf($id: ID!) {
+  deleteShelf(id: $id) {
+    shelf {
+      id
+      title
+    }
+  }
+}
