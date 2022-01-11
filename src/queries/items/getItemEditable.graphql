@@ -1,0 +1,11 @@
+query getItemEditable($id: ID!) {
+  getItem(id: $id) {
+    item {
+      id
+      title
+      description
+      quantity
+      expiry
+    }
+  }
+}

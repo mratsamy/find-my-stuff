@@ -5,6 +5,10 @@ query getAllItems {
       title
       quantity
       expiry
+      shelf {
+        id
+        title
+      }
     }
   }
 }

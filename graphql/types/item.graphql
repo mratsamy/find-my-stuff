@@ -44,4 +44,5 @@ type Query {
 type Mutation {
   addItem(input: NewItemInput!): ItemResponse
   updateItem(input: UpdateItemInput!): ItemResponse
+  deleteItem(id: ID!): ItemResponse
 }

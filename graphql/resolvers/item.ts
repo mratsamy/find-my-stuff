@@ -43,4 +43,11 @@ export const Mutations: MutationResolvers = {
       item,
     };
   },
+  async deleteItem(_parent, { id }, { prisma }, _info) {
+    if (!id || !id.length) return { item: null };
+
+    const item = await prisma.item.delete({ where: { id } });
+
+    return { item };
+  },
 };
