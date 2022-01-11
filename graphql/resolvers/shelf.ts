@@ -43,7 +43,8 @@ export const Mutations: MutationResolvers = {
 
     const shelf = (await prisma.shelf.delete({
       where: { id },
-    })) as unknown as Shelf;
+      include: { items: true },
+    })) as Shelf;
 
     return { shelf };
   },

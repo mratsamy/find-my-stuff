@@ -23,8 +23,8 @@ model Shelf {
   id String @id @default(cuid())
   title String
   description String?
-  container Container @relation(fields: [containerId], references: [id])
-  containerId String
+  container Container? @relation(fields: [containerId], references: [id])
+  containerId String?
   items Item[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

@@ -8,12 +8,12 @@ import {
 import { LoadingSpinner } from "@src/components/loading/LoadingSpinner";
 import ErrorResponse from "@src/components/errorResponse/ErrorResponse";
 
-export function DeleteContainer(props: { id: string; title: string }) {
+export function DeleteShelf(props: { id: string; title: string }) {
   const { id, title } = props;
   const [performMutation, { loading, error, data, called }] =
     useDeleteShelfMutation();
 
-  const deleteContainer = () =>
+  const DeleteShelf = () =>
     performMutation({
       variables: { id },
       refetchQueries: [GetAllShelvesDocument],
@@ -21,7 +21,7 @@ export function DeleteContainer(props: { id: string; title: string }) {
 
   useEventListener("keydown", (event) => {
     if ((event as KeyboardEvent)?.key == "Enter") {
-      deleteContainer();
+      DeleteShelf();
     }
   });
 
@@ -34,7 +34,7 @@ export function DeleteContainer(props: { id: string; title: string }) {
         <p>Successfully Deleted `{data?.deleteShelf?.shelf?.title}`</p>
       )}
       {!called && <p>{title}</p>}
-      <Button onClick={deleteContainer}>Delete</Button>
+      <Button onClick={DeleteShelf}>Delete</Button>
     </Wrapper>
   );
 }

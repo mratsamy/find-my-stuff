@@ -50,11 +50,11 @@ export default function Shelves() {
 
   const columns = [
     {
-      Header: "Containers",
+      Header: "Shelves",
       columns: [
         { Header: "Title", accessor: "title" },
         {
-          Header: "Number of Shelves",
+          Header: "Number of Items",
           accessor: (row: Shelf) => row.items.length ?? 0,
         },
         {
@@ -92,21 +92,21 @@ export default function Shelves() {
       <Table columns={columns} data={shelves} />
       <EmptyPrompt items={shelves} />
       <Modal
-        title={<Title>Add a New Container</Title>}
+        title={<Title>Add a New Shelf</Title>}
         show={showAddModal}
         onClose={closeAddModal}
       >
         <AddShelf />
       </Modal>
       <Modal
-        title={<Title>Edit Container</Title>}
+        title={<Title>Edit Shelf</Title>}
         show={showEditModal}
         onClose={closeEditModal}
       >
         <EditShelf id={editId ?? ""} />
       </Modal>
       <Modal
-        title={<Title>Delete Container</Title>}
+        title={<Title>Delete Shelf</Title>}
         show={showDeleteModal}
         onClose={closeDeleteModal}
       >
