@@ -1,0 +1,15 @@
+query getContainer($id: ID!) {
+  getContainer(id: $id) {
+    container {
+      id
+      title
+      description
+      shelves {
+        id
+        title
+      }
+      createdAt
+      updatedAt
+    }
+  }
+}

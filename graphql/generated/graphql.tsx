@@ -219,6 +219,13 @@ export type GetAllContainersQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetAllContainersQuery = { __typename?: 'Query', containers?: { __typename?: 'ContainersResponse', containers: Array<{ __typename?: 'Container', id: string, title: string, shelves: Array<{ __typename?: 'Shelf', id: string } | null | undefined> } | null | undefined> } | null | undefined };
 
+export type GetContainerQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetContainerQuery = { __typename?: 'Query', getContainer?: { __typename?: 'ContainerResponse', container?: { __typename?: 'Container', id: string, title: string, description?: string | null | undefined, createdAt: any, updatedAt: any, shelves: Array<{ __typename?: 'Shelf', id: string, title: string } | null | undefined> } | null | undefined } | null | undefined };
+
 export type GetContainerEditableQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
@@ -366,6 +373,51 @@ export function useGetAllContainersLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetAllContainersQueryHookResult = ReturnType<typeof useGetAllContainersQuery>;
 export type GetAllContainersLazyQueryHookResult = ReturnType<typeof useGetAllContainersLazyQuery>;
 export type GetAllContainersQueryResult = Apollo.QueryResult<GetAllContainersQuery, GetAllContainersQueryVariables>;
+export const GetContainerDocument = gql`
+    query getContainer($id: ID!) {
+  getContainer(id: $id) {
+    container {
+      id
+      title
+      description
+      shelves {
+        id
+        title
+      }
+      createdAt
+      updatedAt
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetContainerQuery__
+ *
+ * To run a query within a React component, call `useGetContainerQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContainerQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContainerQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetContainerQuery(baseOptions: Apollo.QueryHookOptions<GetContainerQuery, GetContainerQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetContainerQuery, GetContainerQueryVariables>(GetContainerDocument, options);
+      }
+export function useGetContainerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetContainerQuery, GetContainerQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetContainerQuery, GetContainerQueryVariables>(GetContainerDocument, options);
+        }
+export type GetContainerQueryHookResult = ReturnType<typeof useGetContainerQuery>;
+export type GetContainerLazyQueryHookResult = ReturnType<typeof useGetContainerLazyQuery>;
+export type GetContainerQueryResult = Apollo.QueryResult<GetContainerQuery, GetContainerQueryVariables>;
 export const GetContainerEditableDocument = gql`
     query getContainerEditable($id: ID!) {
   getContainer(id: $id) {
