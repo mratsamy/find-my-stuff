@@ -27,11 +27,11 @@ export default function Shelf(props: Props) {
         <Back />
         <Link
           href={{
-            pathname: "/containers",
+            pathname: "/shelves",
             query: { edit: shelf?.id ?? "" },
           }}
         >
-          <a>Edit Container</a>
+          <a>Edit Shelf</a>
         </Link>
       </LinksWrapper>
       <ContentWrapper>
@@ -63,7 +63,7 @@ export async function getServerSideProps(context: Context) {
 
   return {
     props: {
-      container: data.getShelf?.shelf,
+      shelf: data.getShelf?.shelf,
     },
   };
 }

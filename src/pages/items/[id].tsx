@@ -1,39 +1,81 @@
-import { useRouter } from "next/router";
+import type { GetServerSidePropsContext } from "next";
+import styled from "styled-components";
+import Link from "next/link";
 
-import { useGetItemByIdQuery } from "@graphql/generated/graphql";
-import ClientOnly from "@src/components/clientOnly/ClientOnly";
-import Loading from "@src/components/loading/Loading";
-import ErrorResponse from "@src/components/errorResponse/ErrorResponse";
-import Back from "@src/components/buttons/back/Back";
+import Back from "@components/buttons/back/Back";
+import { client } from "@components/apolloClient/ApolloClient";
+import {
+  GetItemDocument,
+  GetItemQueryResult,
+  GetItemQuery,
+} from "@graphql/generated/graphql";
+import { TextField, TextArea, TextDate } from "@components/displayFields";
 
-function Item() {
-  const route = useRouter();
-  var { id = "" } = route.query;
+type Props = NonNullable<GetItemQueryResult["data"]>["getItem"];
 
-  if (Array.isArray(id)) {
-    id = id[0];
-  }
-
-  const { loading, error, data } = useGetItemByIdQuery({
-    variables: { id },
-    fetchPolicy: "cache-and-network",
-  });
-
-  if (loading) return <Loading />;
-  if (error) return <ErrorResponse error={error} />;
+export default function Item(props: Props) {
+  const item = props?.item;
 
   return (
-    <div>
-      <Back />
-      {JSON.stringify(data)}
-    </div>
+    <OuterWrapper>
+      <LinksWrapper>
+        <Back />
+        <Link
+          href={{
+            pathname: "/items",
+            query: { edit: item?.id ?? "" },
+          }}
+        >
+          <a>Edit Item</a>
+        </Link>
+      </LinksWrapper>
+      <ContentWrapper>
+        <TextField fieldName="ID" value={item?.id ?? ""} />
+        <TextField fieldName="Title" value={item?.title ?? ""} />
+        <TextArea fieldName="Description" value={item?.description ?? ""} />
+        <TextField fieldName="Quantity" value={item?.quantity ?? ""} />
+        <TextDate fieldName="Expiration Date" value={item?.expiry} />
+        <TextDate fieldName="Created" value={item?.createdAt} />
+        <TextDate fieldName="Last Updated" value={item?.updatedAt} />
+      </ContentWrapper>
+    </OuterWrapper>
   );
 }
 
-const Component = () => (
-  <ClientOnly>
-    <Item />
-  </ClientOnly>
-);
+type Context = GetServerSidePropsContext<{ id: string }>;
+export async function getServerSideProps(context: Context) {
+  const { data } = await client.query<GetItemQuery>({
+    query: GetItemDocument,
+    variables: { id: context.params?.id },
+  });
 
-export default Component;
+  return {
+    props: {
+      item: data.getItem?.item,
+    },
+  };
+}
+
+const OuterWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+`;
+
+const ContentWrapper = styled.div`
+  align-self: center;
+`;
+
+const LinksWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+
+  a {
+    color: dodgerblue;
+    cursor: pointer;
+    padding: 1em;
+  }
+`;

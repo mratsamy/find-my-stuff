@@ -1,4 +1,4 @@
-query getItemById($id: ID!) {
+query getItem($id: ID!) {
   getItem(id: $id) {
     item {
       id
@@ -6,6 +6,8 @@ query getItemById($id: ID!) {
       description
       quantity
       expiry
+      createdAt
+      updatedAt
     }
   }
 }
