@@ -2,11 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import type { UseTableOptions } from "react-table";
 
-import {
-  useGetAllItemsQuery,
-  Item,
-  GetAllItemsQuery,
-} from "@graphql/generated/graphql";
+import { useGetAllItemsQuery } from "@graphql/generated/graphql";
 import { useNextQueryParam } from "@src/hooks";
 import Loading from "@src/components/loading/Loading";
 import ErrorResponse from "@src/components/errorResponse/ErrorResponse";
@@ -18,16 +14,16 @@ import { ButtonRow } from "@src/components/buttons/buttonRow/ButtonRow";
 import { AddItem } from "@src/components/forms/Items/AddItem";
 import { EditItem } from "@src/components/forms/Items/EditItem";
 import { DeleteItem } from "@src/components/forms/Items/DeleteItem";
+import { formatDate } from "@src/components/displayFields/textDate/TextDate";
 
 type ItemRow = {
-  item?: {
-    id: string;
+  id: string;
+  title?: string;
+  expiry?: string;
+  shelf?: {
     title?: string;
-    shelf?: {
+    container?: {
       title?: string;
-      container?: {
-        title?: string;
-      };
     };
   };
 };
@@ -57,19 +53,29 @@ export default function Items() {
         { Header: "Quanity", accessor: "quantity" },
         {
           Header: "Shelf",
-          accessor: (row: ItemRow) => row.item?.shelf?.title ?? "",
+          accessor: (row) => <>{(row as ItemRow).shelf?.title ?? ""}</>,
         },
         {
           Header: "Container",
-          accessor: (row: ItemRow) => row.item?.shelf?.container?.title ?? "",
+          accessor: (row) => (
+            <>{(row as ItemRow)?.shelf?.container?.title ?? ""}</>
+          ),
         },
-        { Header: "Expiration Date", accessor: "expiry" },
+        {
+          Header: "Expiration Date",
+          accessor: (row) => (
+            <>{formatDate((row as ItemRow)?.expiry ?? "", true)}</>
+          ),
+        },
         {
           Header: "Actions",
-          accessor: (row: ItemRow) => (
+          accessor: (row) => (
             <ButtonRow
               url="/items/"
-              row={{ id: row.item?.id ?? "", title: row.item?.title }}
+              row={{
+                id: (row as ItemRow)?.id ?? "",
+                title: (row as ItemRow)?.title,
+              }}
               setEditId={setEditId}
               setShowEditModal={setShowEditModal}
               setDeleteId={setDeleteId}
