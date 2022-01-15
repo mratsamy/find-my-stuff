@@ -4,7 +4,7 @@ type Item {
   description: String
   shelf: Shelf
   quantity: NonNegativeInt!
-  expiry: DateTime!
+  expiry: Date!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -14,7 +14,7 @@ input NewItemInput {
   description: String
   shelfId: String
   quantity: NonNegativeInt!
-  expiry: DateTime!
+  expiry: Date!
 }
 
 input UpdateItemInput {
@@ -23,7 +23,7 @@ input UpdateItemInput {
   description: String
   shelfId: String
   quantity: NonNegativeInt
-  expiry: DateTime
+  expiry: Date
 }
 
 type ItemResponse {

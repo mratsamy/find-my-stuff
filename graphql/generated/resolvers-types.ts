@@ -13,6 +13,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
+  Date: any;
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: any;
   /** Integers that will have a value of 0 or more. */
@@ -286,6 +288,7 @@ export type ResolversTypes = ResolversObject<{
   Container: ResolverTypeWrapper<Container>;
   ContainerResponse: ResolverTypeWrapper<ContainerResponse>;
   ContainersResponse: ResolverTypeWrapper<ContainersResponse>;
+  Date: ResolverTypeWrapper<Scalars['Date']>;
   DateTime: ResolverTypeWrapper<Scalars['DateTime']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Item: ResolverTypeWrapper<Item>;
@@ -312,6 +315,7 @@ export type ResolversParentTypes = ResolversObject<{
   Container: Container;
   ContainerResponse: ContainerResponse;
   ContainersResponse: ContainersResponse;
+  Date: Scalars['Date'];
   DateTime: Scalars['DateTime'];
   ID: Scalars['ID'];
   Item: Item;
@@ -353,6 +357,10 @@ export type ContainersResponseResolvers<ContextType = Context, ParentType extend
   query?: Resolver<Maybe<ResolversTypes['Query']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
+
+export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
+  name: 'Date';
+}
 
 export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['DateTime'], any> {
   name: 'DateTime';
@@ -434,6 +442,7 @@ export type Resolvers<ContextType = Context> = ResolversObject<{
   Container?: ContainerResolvers<ContextType>;
   ContainerResponse?: ContainerResponseResolvers<ContextType>;
   ContainersResponse?: ContainersResponseResolvers<ContextType>;
+  Date?: GraphQLScalarType;
   DateTime?: GraphQLScalarType;
   Item?: ItemResolvers<ContextType>;
   ItemResponse?: ItemResponseResolvers<ContextType>;

@@ -1,4 +1,8 @@
-import { GraphQLDateTime, GraphQLNonNegativeInt } from "graphql-scalars";
+import {
+  GraphQLDateTime,
+  GraphQLNonNegativeInt,
+  GraphQLDate,
+} from "graphql-scalars";
 
 import {
   Queries as ItemQueries,
@@ -18,6 +22,7 @@ import {
 } from "./resolvers/shelf";
 
 const resolvers = {
+  Date: GraphQLDate,
   DateTime: GraphQLDateTime,
   NonNegativeInt: GraphQLNonNegativeInt,
   ...ContainerTopLevelResolvers,

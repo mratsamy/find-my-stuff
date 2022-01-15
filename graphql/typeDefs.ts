@@ -11,6 +11,7 @@ const typesArray = loadFilesSync(
 );
 
 const customScalars = gql`
+  scalar Date
   scalar DateTime
   scalar NonNegativeInt
 `;

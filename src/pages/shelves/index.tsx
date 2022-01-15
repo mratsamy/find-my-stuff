@@ -14,23 +14,6 @@ import { AddShelf } from "@src/components/forms/Shelves/AddShelf";
 import { EditShelf } from "@src/components/forms/Shelves/EditShelf";
 import { DeleteShelf } from "@src/components/forms/Shelves/DeleteShelf";
 
-const columns = [
-  {
-    Header: "Shelves",
-    columns: [
-      { Header: "Title", accessor: "title" },
-      {
-        Header: "Container",
-        accessor: (row: Shelf) => row.container?.title ?? "",
-      },
-      {
-        Header: "Number of Items",
-        accessor: (row: Shelf) => row.items.length ?? 0,
-      },
-    ],
-  },
-];
-
 export default function Shelves() {
   const defaultEditId = useNextQueryParam("edit");
   const { loading, error, data } = useGetAllShelvesQuery();

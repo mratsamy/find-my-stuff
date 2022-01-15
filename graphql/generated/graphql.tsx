@@ -13,6 +13,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
+  Date: any;
   /** A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar. */
   DateTime: any;
   /** Integers that will have a value of 0 or more. */
@@ -269,7 +271,7 @@ export type DeleteItemMutation = { __typename?: 'Mutation', deleteItem?: { __typ
 export type GetAllItemsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllItemsQuery = { __typename?: 'Query', items?: { __typename?: 'ItemsResponse', items: Array<{ __typename?: 'Item', id: string, title: string, quantity: any, expiry: any, shelf?: { __typename?: 'Shelf', id: string, title: string } | null | undefined } | null | undefined> } | null | undefined };
+export type GetAllItemsQuery = { __typename?: 'Query', items?: { __typename?: 'ItemsResponse', items: Array<{ __typename?: 'Item', id: string, title: string, quantity: any, expiry: any, shelf?: { __typename?: 'Shelf', id: string, title: string, container?: { __typename?: 'Container', id: string, title: string } | null | undefined } | null | undefined } | null | undefined> } | null | undefined };
 
 export type GetItemByIdQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -644,6 +646,10 @@ export const GetAllItemsDocument = gql`
       shelf {
         id
         title
+        container {
+          id
+          title
+        }
       }
     }
   }

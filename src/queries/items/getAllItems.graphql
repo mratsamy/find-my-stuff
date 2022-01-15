@@ -8,6 +8,10 @@ query getAllItems {
       shelf {
         id
         title
+        container {
+          id
+          title
+        }
       }
     }
   }
