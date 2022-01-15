@@ -1,0 +1,15 @@
+query getShelf($id: ID!) {
+  getShelf(id: $id) {
+    shelf {
+      id
+      title
+      description
+      items {
+        id
+        title
+      }
+      createdAt
+      updatedAt
+    }
+  }
+}

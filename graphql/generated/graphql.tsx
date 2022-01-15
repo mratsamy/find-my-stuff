@@ -47,7 +47,7 @@ export type Item = {
   __typename?: 'Item';
   createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
-  expiry: Scalars['DateTime'];
+  expiry: Scalars['Date'];
   id: Scalars['ID'];
   quantity: Scalars['NonNegativeInt'];
   shelf?: Maybe<Shelf>;
@@ -132,7 +132,7 @@ export type NewContainerInput = {
 
 export type NewItemInput = {
   description?: InputMaybe<Scalars['String']>;
-  expiry: Scalars['DateTime'];
+  expiry: Scalars['Date'];
   quantity: Scalars['NonNegativeInt'];
   shelfId?: InputMaybe<Scalars['String']>;
   title: Scalars['String'];
@@ -200,7 +200,7 @@ export type UpdateContainerInput = {
 
 export type UpdateItemInput = {
   description?: InputMaybe<Scalars['String']>;
-  expiry?: InputMaybe<Scalars['DateTime']>;
+  expiry?: InputMaybe<Scalars['Date']>;
   id: Scalars['ID'];
   quantity?: InputMaybe<Scalars['NonNegativeInt']>;
   shelfId?: InputMaybe<Scalars['String']>;
@@ -312,6 +312,13 @@ export type GetAllShelvesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type GetAllShelvesQuery = { __typename?: 'Query', shelves?: { __typename?: 'ShelvesResponse', shelves: Array<{ __typename?: 'Shelf', id: string, title: string, container?: { __typename?: 'Container', id: string, title: string } | null | undefined, items: Array<{ __typename?: 'Item', id: string } | null | undefined> } | null | undefined> } | null | undefined };
+
+export type GetShelfQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type GetShelfQuery = { __typename?: 'Query', getShelf?: { __typename?: 'ShelfResponse', shelf?: { __typename?: 'Shelf', id: string, title: string, description?: string | null | undefined, createdAt: any, updatedAt: any, items: Array<{ __typename?: 'Item', id: string, title: string } | null | undefined> } | null | undefined } | null | undefined };
 
 export type GetShelfEditableQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -916,6 +923,51 @@ export function useGetAllShelvesLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type GetAllShelvesQueryHookResult = ReturnType<typeof useGetAllShelvesQuery>;
 export type GetAllShelvesLazyQueryHookResult = ReturnType<typeof useGetAllShelvesLazyQuery>;
 export type GetAllShelvesQueryResult = Apollo.QueryResult<GetAllShelvesQuery, GetAllShelvesQueryVariables>;
+export const GetShelfDocument = gql`
+    query getShelf($id: ID!) {
+  getShelf(id: $id) {
+    shelf {
+      id
+      title
+      description
+      items {
+        id
+        title
+      }
+      createdAt
+      updatedAt
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetShelfQuery__
+ *
+ * To run a query within a React component, call `useGetShelfQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetShelfQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetShelfQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetShelfQuery(baseOptions: Apollo.QueryHookOptions<GetShelfQuery, GetShelfQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetShelfQuery, GetShelfQueryVariables>(GetShelfDocument, options);
+      }
+export function useGetShelfLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetShelfQuery, GetShelfQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetShelfQuery, GetShelfQueryVariables>(GetShelfDocument, options);
+        }
+export type GetShelfQueryHookResult = ReturnType<typeof useGetShelfQuery>;
+export type GetShelfLazyQueryHookResult = ReturnType<typeof useGetShelfLazyQuery>;
+export type GetShelfQueryResult = Apollo.QueryResult<GetShelfQuery, GetShelfQueryVariables>;
 export const GetShelfEditableDocument = gql`
     query getShelfEditable($id: ID!) {
   getShelf(id: $id) {
