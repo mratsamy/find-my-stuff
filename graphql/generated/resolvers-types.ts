@@ -47,7 +47,7 @@ export type Item = {
   __typename?: 'Item';
   createdAt: Scalars['DateTime'];
   description?: Maybe<Scalars['String']>;
-  expiry: Scalars['DateTime'];
+  expiry: Scalars['Date'];
   id: Scalars['ID'];
   quantity: Scalars['NonNegativeInt'];
   shelf?: Maybe<Shelf>;
@@ -132,7 +132,7 @@ export type NewContainerInput = {
 
 export type NewItemInput = {
   description?: InputMaybe<Scalars['String']>;
-  expiry: Scalars['DateTime'];
+  expiry: Scalars['Date'];
   quantity: Scalars['NonNegativeInt'];
   shelfId?: InputMaybe<Scalars['String']>;
   title: Scalars['String'];
@@ -200,7 +200,7 @@ export type UpdateContainerInput = {
 
 export type UpdateItemInput = {
   description?: InputMaybe<Scalars['String']>;
-  expiry?: InputMaybe<Scalars['DateTime']>;
+  expiry?: InputMaybe<Scalars['Date']>;
   id: Scalars['ID'];
   quantity?: InputMaybe<Scalars['NonNegativeInt']>;
   shelfId?: InputMaybe<Scalars['String']>;
@@ -369,7 +369,7 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 export type ItemResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Item'] = ResolversParentTypes['Item']> = ResolversObject<{
   createdAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  expiry?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
+  expiry?: Resolver<ResolversTypes['Date'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   quantity?: Resolver<ResolversTypes['NonNegativeInt'], ParentType, ContextType>;
   shelf?: Resolver<Maybe<ResolversTypes['Shelf']>, ParentType, ContextType>;
