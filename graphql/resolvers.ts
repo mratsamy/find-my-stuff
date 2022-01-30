@@ -7,6 +7,7 @@ import {
 import {
   Queries as ItemQueries,
   Mutations as ItemMuatatations,
+  TopLevelResolvers as ItemTopLevelResolvers,
 } from "./resolvers/item";
 
 import {
@@ -27,6 +28,7 @@ const resolvers = {
   NonNegativeInt: GraphQLNonNegativeInt,
   ...ContainerTopLevelResolvers,
   ...ShelfTopLevelResolvers,
+  ...ItemTopLevelResolvers,
   Query: {
     ...ItemQueries,
     ...ContainerQueries,

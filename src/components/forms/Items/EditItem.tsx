@@ -23,7 +23,7 @@ export function EditItem({ id }: Props) {
         title: string;
         description: string;
         quantity: number;
-        expiry: Date;
+        expiry: string;
       }>
     >
   >();
@@ -45,7 +45,12 @@ export function EditItem({ id }: Props) {
     { error: mutationError, loading: mutationLoading, data: mutationData },
   ] = useUpdateItemMutation();
 
-  const onSubmit = (values: { title: string; description: string }) => {
+  const onSubmit = (values: {
+    title: string;
+    description: string;
+    quantity: number;
+    expiry: string;
+  }) => {
     return performMutation({
       variables: { input: { id, ...values } },
       refetchQueries: [GetAllItemsDocument],
@@ -66,16 +71,21 @@ export function EditItem({ id }: Props) {
     title: data?.getItem?.item?.title ?? "",
     description: data?.getItem?.item?.description ?? "",
     quantity: data?.getItem?.item?.quantity ?? 0,
-    expiry: new Date(data?.getItem?.item?.expiry) ?? new Date(),
+    expiry: data?.getItem?.item?.expiry ?? "",
   };
 
   const validate = (values: {
     title?: string;
     description?: string;
     quantity?: number;
-    expiry?: Date;
+    expiry?: string;
   }) => {
-    const errors: { title?: string; quantity?: string; expiry?: string } = {};
+    const errors: {
+      title?: string;
+      description?: string;
+      quantity?: string;
+      expiry?: string;
+    } = {};
 
     if (!values.title) {
       errors.title = "Required";

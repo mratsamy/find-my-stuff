@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { StyledForm } from "@components/forms";
 import { useEventListener } from "@src/hooks";
+import { ContainerSelector } from "@components/forms/Containers/ContainerSelector";
 import {
   GetAllShelvesDocument,
   useAddShelfMutation,
@@ -84,6 +85,7 @@ export function AddShelf() {
               placeholder="Description"
               type="textarea"
             />
+            <ContainerSelector />
             <button type="submit">Submit</button>
           </StyledForm>
         );

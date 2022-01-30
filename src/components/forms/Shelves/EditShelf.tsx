@@ -9,6 +9,7 @@ import {
   useGetShelfEditableQuery,
   useUpdateShelfMutation,
 } from "@graphql/generated/graphql";
+import { ContainerSelector } from "@components/forms/Containers/ContainerSelector";
 import { LoadingSpinner } from "@src/components/loading/LoadingSpinner";
 import ErrorResponse from "@src/components/errorResponse/ErrorResponse";
 
@@ -17,8 +18,14 @@ type Props = {
 };
 
 export function EditShelf({ id }: Props) {
-  const formRef =
-    useRef<React.Ref<FormikProps<{ title: string; description: string }>>>();
+  const formRef = useRef<
+    React.Ref<
+      FormikProps<{
+        title: string;
+        description: string;
+      }>
+    >
+  >();
 
   useEventListener("keydown", (event) => {
     if ((event as KeyboardEvent)?.key == "Enter") {
@@ -57,6 +64,7 @@ export function EditShelf({ id }: Props) {
   const initialValues = {
     title: data?.getShelf?.shelf?.title ?? "",
     description: data?.getShelf?.shelf?.description ?? "",
+    containerId: data?.getShelf?.shelf?.container?.id ?? "",
   };
 
   const validate = (values: { title?: string; description?: string }) => {
@@ -110,6 +118,7 @@ export function EditShelf({ id }: Props) {
               placeholder="Description"
               type="textarea"
             />
+            <ContainerSelector />
             <button type="submit">Submit</button>
           </StyledForm>
         );

@@ -44,7 +44,7 @@ export default function Shelves() {
           Header: "Actions",
           accessor: (row: Shelf) => (
             <ButtonRow
-              url="/containers/"
+              url="/shelves/"
               row={row}
               setEditId={setEditId}
               setShowEditModal={setShowEditModal}

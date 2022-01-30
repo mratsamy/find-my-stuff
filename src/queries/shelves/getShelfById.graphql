@@ -4,6 +4,10 @@ query getShelf($id: ID!) {
       id
       title
       description
+      container {
+        id
+        title
+      }
       items {
         id
         title

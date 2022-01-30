@@ -34,8 +34,13 @@ export default function Item(props: Props) {
         <TextField fieldName="Title" value={item?.title ?? ""} />
         <TextArea fieldName="Description" value={item?.description ?? ""} />
         <TextField fieldName="Quantity" value={item?.quantity ?? ""} />
-        <TextDate fieldName="Expiration Date" value={item?.expiry} />
-        <TextDate fieldName="Created" value={item?.createdAt} />
+        <TextDate
+          fieldName="Expiration Date"
+          value={item?.expiry}
+          dateOnly={true}
+          convertToUTC={true}
+        />
+        <TextDate fieldName="Created At" value={item?.createdAt} />
         <TextDate fieldName="Last Updated" value={item?.updatedAt} />
       </ContentWrapper>
     </OuterWrapper>

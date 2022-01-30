@@ -1,8 +1,9 @@
-import type { PropsWithChildren, MouseEvent, HTMLAttributes } from "react";
+import { forwardRef } from "react";
+import type { PropsWithChildren, MouseEvent } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-export enum ACTION_TYPES {
+enum ACTION_TYPES {
   DELETE = "delete",
   EDIT = "edit",
   VIEW = "view",
@@ -15,7 +16,7 @@ type Props = PropsWithChildren<{
   href?: string;
 }>;
 
-export function ActionButton(props: Props) {
+const ActionButton = forwardRef((props: Props, ref) => {
   const router = useRouter();
   const { action, children, type, href } = props;
   const actionType = type ? type : ACTION_TYPES.DEFAULT;
@@ -30,7 +31,9 @@ export function ActionButton(props: Props) {
       {children}
     </Button>
   );
-}
+});
+
+ActionButton.displayName = "ActionButton";
 
 const Button = styled.button`
   color: white;
@@ -55,3 +58,5 @@ const Button = styled.button`
     background-color: dodgerblue;
   }
 `;
+
+export { ActionButton, ACTION_TYPES };

@@ -16,7 +16,7 @@ type Props = {
   id: string;
 };
 
-export function EditContainer({ id }: Props) {
+export function EditContainer({ id, ...rest }: Props) {
   const formRef =
     useRef<React.Ref<FormikProps<{ title: string; description: string }>>>();
 
@@ -55,6 +55,7 @@ export function EditContainer({ id }: Props) {
   if (mutationError) return <ErrorResponse error={mutationError} />;
 
   const initialValues = {
+    containerId: data?.getContainer?.container?.id ?? "",
     title: data?.getContainer?.container?.title ?? "",
     description: data?.getContainer?.container?.description ?? "",
   };
@@ -78,7 +79,7 @@ export function EditContainer({ id }: Props) {
       onSubmit={onSubmit}
       validate={validate}
     >
-      {({ errors, touched }) => {
+      {({ errors, touched, ...formikRest }) => {
         const errorTitle = errors.title && touched.title ? "error" : "";
         const errorDescription =
           errors.description && touched.description ? "error" : "";

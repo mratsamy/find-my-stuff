@@ -64,7 +64,7 @@ export default function Items() {
         {
           Header: "Expiration Date",
           accessor: (row) => (
-            <>{formatDate((row as ItemRow)?.expiry ?? "", true)}</>
+            <>{formatDate((row as ItemRow)?.expiry ?? "", true, true)}</>
           ),
         },
         {

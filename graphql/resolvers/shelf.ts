@@ -66,7 +66,24 @@ export const Mutations: MutationResolvers = {
 
 export const TopLevelResolvers = {
   Shelf: {
+    container(
+      parent: { containerId: string },
+      _args: any,
+      { prisma }: Graphql.Context
+    ) {
+      if (!parent.containerId) {
+        return { id: "", title: "" };
+      }
+
+      return prisma.container.findUnique({
+        where: { id: parent.containerId },
+      });
+    },
     items(parent: { id: string }, _args: any, { prisma }: Graphql.Context) {
+      if (!parent.id) {
+        return { id: "", title: "" };
+      }
+
       return prisma.item.findMany({
         where: { shelfId: parent.id },
       });
