@@ -41,7 +41,6 @@ export function formatDate(
 ): string {
   const date = new Date(dateString);
 
-  console.log({ date, dateString });
   if (date.toString() == "Invalid Date") return "";
 
   const hour = formatHours(date.getHours());

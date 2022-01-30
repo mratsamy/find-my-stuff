@@ -1,0 +1,8 @@
+query getContainersSelector {
+  containers {
+    containers {
+      id
+      title
+    }
+  }
+}

@@ -247,6 +247,11 @@ export type GetContainerEditableQueryVariables = Exact<{
 
 export type GetContainerEditableQuery = { __typename?: 'Query', getContainer?: { __typename?: 'ContainerResponse', container?: { __typename?: 'Container', id: string, title: string, description?: string | null | undefined } | null | undefined } | null | undefined };
 
+export type GetContainersSelectorQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetContainersSelectorQuery = { __typename?: 'Query', containers?: { __typename?: 'ContainersResponse', containers: Array<{ __typename?: 'Container', id: string, title: string } | null | undefined> } | null | undefined };
+
 export type UpdateContainerMutationVariables = Exact<{
   input: UpdateContainerInput;
 }>;
@@ -318,21 +323,21 @@ export type GetShelfQueryVariables = Exact<{
 }>;
 
 
-export type GetShelfQuery = { __typename?: 'Query', getShelf?: { __typename?: 'ShelfResponse', shelf?: { __typename?: 'Shelf', id: string, title: string, description?: string | null | undefined, createdAt: any, updatedAt: any, items: Array<{ __typename?: 'Item', id: string, title: string } | null | undefined> } | null | undefined } | null | undefined };
+export type GetShelfQuery = { __typename?: 'Query', getShelf?: { __typename?: 'ShelfResponse', shelf?: { __typename?: 'Shelf', id: string, title: string, description?: string | null | undefined, createdAt: any, updatedAt: any, container?: { __typename?: 'Container', id: string, title: string } | null | undefined, items: Array<{ __typename?: 'Item', id: string, title: string } | null | undefined> } | null | undefined } | null | undefined };
 
 export type GetShelfEditableQueryVariables = Exact<{
   id: Scalars['ID'];
 }>;
 
 
-export type GetShelfEditableQuery = { __typename?: 'Query', getShelf?: { __typename?: 'ShelfResponse', shelf?: { __typename?: 'Shelf', id: string, title: string, description?: string | null | undefined } | null | undefined } | null | undefined };
+export type GetShelfEditableQuery = { __typename?: 'Query', getShelf?: { __typename?: 'ShelfResponse', shelf?: { __typename?: 'Shelf', id: string, title: string, description?: string | null | undefined, container?: { __typename?: 'Container', id: string, title: string } | null | undefined } | null | undefined } | null | undefined };
 
 export type UpdateShelfMutationVariables = Exact<{
   input: UpdateShelfInput;
 }>;
 
 
-export type UpdateShelfMutation = { __typename?: 'Mutation', updateShelf?: { __typename?: 'ShelfResponse', shelf?: { __typename?: 'Shelf', id: string, title: string } | null | undefined } | null | undefined };
+export type UpdateShelfMutation = { __typename?: 'Mutation', updateShelf?: { __typename?: 'ShelfResponse', shelf?: { __typename?: 'Shelf', id: string, title: string, container?: { __typename?: 'Container', id: string, title: string } | null | undefined } | null | undefined } | null | undefined };
 
 
 export const AddContainerDocument = gql`
@@ -534,6 +539,43 @@ export function useGetContainerEditableLazyQuery(baseOptions?: Apollo.LazyQueryH
 export type GetContainerEditableQueryHookResult = ReturnType<typeof useGetContainerEditableQuery>;
 export type GetContainerEditableLazyQueryHookResult = ReturnType<typeof useGetContainerEditableLazyQuery>;
 export type GetContainerEditableQueryResult = Apollo.QueryResult<GetContainerEditableQuery, GetContainerEditableQueryVariables>;
+export const GetContainersSelectorDocument = gql`
+    query getContainersSelector {
+  containers {
+    containers {
+      id
+      title
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetContainersSelectorQuery__
+ *
+ * To run a query within a React component, call `useGetContainersSelectorQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetContainersSelectorQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetContainersSelectorQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetContainersSelectorQuery(baseOptions?: Apollo.QueryHookOptions<GetContainersSelectorQuery, GetContainersSelectorQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetContainersSelectorQuery, GetContainersSelectorQueryVariables>(GetContainersSelectorDocument, options);
+      }
+export function useGetContainersSelectorLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetContainersSelectorQuery, GetContainersSelectorQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetContainersSelectorQuery, GetContainersSelectorQueryVariables>(GetContainersSelectorDocument, options);
+        }
+export type GetContainersSelectorQueryHookResult = ReturnType<typeof useGetContainersSelectorQuery>;
+export type GetContainersSelectorLazyQueryHookResult = ReturnType<typeof useGetContainersSelectorLazyQuery>;
+export type GetContainersSelectorQueryResult = Apollo.QueryResult<GetContainersSelectorQuery, GetContainersSelectorQueryVariables>;
 export const UpdateContainerDocument = gql`
     mutation updateContainer($input: UpdateContainerInput!) {
   updateContainer(input: $input) {
@@ -932,6 +974,10 @@ export const GetShelfDocument = gql`
       id
       title
       description
+      container {
+        id
+        title
+      }
       items {
         id
         title
@@ -977,6 +1023,10 @@ export const GetShelfEditableDocument = gql`
       id
       title
       description
+      container {
+        id
+        title
+      }
     }
   }
 }
@@ -1015,6 +1065,10 @@ export const UpdateShelfDocument = gql`
     shelf {
       id
       title
+      container {
+        id
+        title
+      }
     }
   }
 }

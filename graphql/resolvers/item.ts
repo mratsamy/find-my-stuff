@@ -3,6 +3,7 @@ import type {
   QueryResolvers,
 } from "@graphql/generated/resolvers-types";
 import type { Prisma } from "@prisma/client";
+import type { Graphql } from "types/graphql";
 
 export const Queries: QueryResolvers = {
   async items(_parent, _args, { prisma }, _info) {
@@ -49,5 +50,19 @@ export const Mutations: MutationResolvers = {
     const item = await prisma.item.delete({ where: { id } });
 
     return { item };
+  },
+};
+
+export const TopLevelResolvers = {
+  Item: {
+    shelf(
+      parent: { shelfId: string },
+      _args: any,
+      { prisma }: Graphql.Context
+    ) {
+      return prisma.shelf.findUnique({
+        where: { id: parent.shelfId },
+      });
+    },
   },
 };

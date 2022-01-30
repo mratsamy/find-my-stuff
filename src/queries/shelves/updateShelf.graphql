@@ -3,6 +3,10 @@ mutation updateShelf($input: UpdateShelfInput!) {
     shelf {
       id
       title
+      container {
+        id
+        title
+      }
     }
   }
 }

@@ -14,7 +14,8 @@ export const StyledForm = styled(Form)`
     border-color: red;
   }
 
-  input {
+  input,
+  select {
     padding: 1em 2em;
   }
 

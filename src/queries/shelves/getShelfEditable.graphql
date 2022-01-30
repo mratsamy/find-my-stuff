@@ -4,6 +4,10 @@ query getShelfEditable($id: ID!) {
       id
       title
       description
+      container {
+        id
+        title
+      }
     }
   }
 }

@@ -38,8 +38,12 @@ export default function Shelf(props: Props) {
         <TextField fieldName="ID" value={shelf?.id ?? ""} />
         <TextField fieldName="Title" value={shelf?.title ?? ""} />
         <TextArea fieldName="Description" value={shelf?.description ?? ""} />
+        <TextField
+          fieldName="Container"
+          value={shelf?.container?.title ?? ""}
+        />
         <TextItems
-          fieldName="Shelves"
+          fieldName="Items"
           items={
             shelf?.items.map((item) => ({
               id: item?.id ?? "",
