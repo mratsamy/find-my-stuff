@@ -60,6 +60,10 @@ export const TopLevelResolvers = {
       _args: any,
       { prisma }: Graphql.Context
     ) {
+      if (!parent.shelfId) {
+        return { id: "", title: "" };
+      }
+
       return prisma.shelf.findUnique({
         where: { id: parent.shelfId },
       });
