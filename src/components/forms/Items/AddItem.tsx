@@ -8,6 +8,7 @@ import {
   GetAllItemsDocument,
   useAddItemMutation,
 } from "@graphql/generated/graphql";
+import { ShelfSelector } from "@components/forms/Shelves/ShelfSelector";
 import { LoadingSpinner } from "@src/components/loading/LoadingSpinner";
 
 export function AddItem() {
@@ -18,6 +19,7 @@ export function AddItem() {
         description: string;
         quantity: number;
         expiry: Date;
+        shelfId: string;
       }>
     >
   >();
@@ -36,6 +38,7 @@ export function AddItem() {
     description: "",
     quantity: 0,
     expiry: new Date(),
+    shelfId: "",
   };
 
   const onSubmit = (values: {
@@ -43,6 +46,7 @@ export function AddItem() {
     description: string;
     expiry: Date;
     quantity: number;
+    shelfId: string;
   }) => {
     return performMutation({
       variables: { input: values },
@@ -55,8 +59,14 @@ export function AddItem() {
     description?: string;
     quantity?: number;
     expiry?: Date;
+    shelfId?: string;
   }) => {
-    const errors: { title?: string; quantity?: string; expiry?: string } = {};
+    const errors: {
+      title?: string;
+      quantity?: string;
+      expiry?: string;
+      shelfId?: string;
+    } = {};
 
     if (!values.title) {
       errors.title = "Required";
@@ -133,6 +143,7 @@ export function AddItem() {
               placeholder="expiry"
               type="date"
             />
+            <ShelfSelector />
             <button type="submit">Submit</button>
           </StyledForm>
         );

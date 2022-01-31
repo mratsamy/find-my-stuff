@@ -9,6 +9,7 @@ import {
   useGetItemEditableQuery,
   useUpdateItemMutation,
 } from "@graphql/generated/graphql";
+import { ShelfSelector } from "@components/forms/Shelves/ShelfSelector";
 import { LoadingSpinner } from "@src/components/loading/LoadingSpinner";
 import ErrorResponse from "@src/components/errorResponse/ErrorResponse";
 
@@ -72,6 +73,7 @@ export function EditItem({ id }: Props) {
     description: data?.getItem?.item?.description ?? "",
     quantity: data?.getItem?.item?.quantity ?? 0,
     expiry: data?.getItem?.item?.expiry ?? "",
+    shelfId: data?.getItem?.item?.shelf?.id ?? "",
   };
 
   const validate = (values: {
@@ -164,6 +166,7 @@ export function EditItem({ id }: Props) {
               placeholder="expiry"
               type="date"
             />
+            <ShelfSelector />
             <button type="submit">Submit</button>
           </StyledForm>
         );

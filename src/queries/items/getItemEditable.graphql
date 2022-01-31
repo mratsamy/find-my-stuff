@@ -6,6 +6,9 @@ query getItemEditable($id: ID!) {
       description
       quantity
       expiry
+      shelf {
+        id
+      }
     }
   }
 }

@@ -290,7 +290,7 @@ export type GetItemEditableQueryVariables = Exact<{
 }>;
 
 
-export type GetItemEditableQuery = { __typename?: 'Query', getItem?: { __typename?: 'ItemResponse', item?: { __typename?: 'Item', id: string, title: string, description?: string | null | undefined, quantity: any, expiry: any } | null | undefined } | null | undefined };
+export type GetItemEditableQuery = { __typename?: 'Query', getItem?: { __typename?: 'ItemResponse', item?: { __typename?: 'Item', id: string, title: string, description?: string | null | undefined, quantity: any, expiry: any, shelf?: { __typename?: 'Shelf', id: string } | null | undefined } | null | undefined } | null | undefined };
 
 export type UpdateItemMutationVariables = Exact<{
   input: UpdateItemInput;
@@ -331,6 +331,11 @@ export type GetShelfEditableQueryVariables = Exact<{
 
 
 export type GetShelfEditableQuery = { __typename?: 'Query', getShelf?: { __typename?: 'ShelfResponse', shelf?: { __typename?: 'Shelf', id: string, title: string, description?: string | null | undefined, container?: { __typename?: 'Container', id: string, title: string } | null | undefined } | null | undefined } | null | undefined };
+
+export type GetShelvesSelectorQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetShelvesSelectorQuery = { __typename?: 'Query', shelves?: { __typename?: 'ShelvesResponse', shelves: Array<{ __typename?: 'Shelf', id: string, title: string } | null | undefined> } | null | undefined };
 
 export type UpdateShelfMutationVariables = Exact<{
   input: UpdateShelfInput;
@@ -783,6 +788,9 @@ export const GetItemEditableDocument = gql`
       description
       quantity
       expiry
+      shelf {
+        id
+      }
     }
   }
 }
@@ -1059,6 +1067,43 @@ export function useGetShelfEditableLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type GetShelfEditableQueryHookResult = ReturnType<typeof useGetShelfEditableQuery>;
 export type GetShelfEditableLazyQueryHookResult = ReturnType<typeof useGetShelfEditableLazyQuery>;
 export type GetShelfEditableQueryResult = Apollo.QueryResult<GetShelfEditableQuery, GetShelfEditableQueryVariables>;
+export const GetShelvesSelectorDocument = gql`
+    query getShelvesSelector {
+  shelves {
+    shelves {
+      id
+      title
+    }
+  }
+}
+    `;
+
+/**
+ * __useGetShelvesSelectorQuery__
+ *
+ * To run a query within a React component, call `useGetShelvesSelectorQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetShelvesSelectorQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetShelvesSelectorQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetShelvesSelectorQuery(baseOptions?: Apollo.QueryHookOptions<GetShelvesSelectorQuery, GetShelvesSelectorQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetShelvesSelectorQuery, GetShelvesSelectorQueryVariables>(GetShelvesSelectorDocument, options);
+      }
+export function useGetShelvesSelectorLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetShelvesSelectorQuery, GetShelvesSelectorQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetShelvesSelectorQuery, GetShelvesSelectorQueryVariables>(GetShelvesSelectorDocument, options);
+        }
+export type GetShelvesSelectorQueryHookResult = ReturnType<typeof useGetShelvesSelectorQuery>;
+export type GetShelvesSelectorLazyQueryHookResult = ReturnType<typeof useGetShelvesSelectorLazyQuery>;
+export type GetShelvesSelectorQueryResult = Apollo.QueryResult<GetShelvesSelectorQuery, GetShelvesSelectorQueryVariables>;
 export const UpdateShelfDocument = gql`
     mutation updateShelf($input: UpdateShelfInput!) {
   updateShelf(input: $input) {
