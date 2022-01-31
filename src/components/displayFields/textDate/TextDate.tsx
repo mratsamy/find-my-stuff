@@ -50,7 +50,6 @@ export function formatDate(
   if (date.toString() == "Invalid Date") return "";
 
   if (convertToUTC) {
-    console.log("ran");
     date.setHours(date.getHours() + date.getTimezoneOffset() / 60);
   }
 
